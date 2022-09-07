@@ -1,0 +1,24 @@
+.JoinHeader {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  h2 {
+    font-size: var(--large-font-size);
+    font-weight: var(--medium-font-weight);
+  }
+  p {
+    font-size: var(--small-font-size);
+    font-weight: var(--light-font-weight);
+    color: var(--subfont-color);
+    margin-top: 8px;
+  }
+  @media screen and (max-width: 768px) {
+    h2 {
+      font-size: var(--medium-font-size);
+    }
+    p {
+      font-size: var(--small-font-size-mobile);
+    }
+  }
+}

@@ -1,0 +1,8 @@
+.LoginSection {
+  display: flex;
+  margin: 42px auto 0 auto;
+  flex-direction: column;
+  @media screen and (max-width: 768px) {
+    margin: 24px auto 0 auto;
+  }
+}
