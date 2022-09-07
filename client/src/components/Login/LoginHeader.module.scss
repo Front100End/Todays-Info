@@ -1,0 +1,31 @@
+.LoginHeader {
+  display: block;
+  margin: 0 auto;
+  padding: 0 45px;
+  .logoImage {
+    display: inline-block;
+    width: 45px;
+    height: 45px;
+    background-color: #ececff;
+    border-radius: 50%;
+    text-align: center;
+  }
+  > h2 {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    font-size: var(--large-font-size);
+  }
+  > p {
+    font-size: var(--small-font-size);
+    color: var(--subfont-color);
+  }
+  @media screen and (max-width: 768px) {
+    > h2 {
+      font-size: var(--large-font-size-mobile);
+    }
+    > p {
+      font-size: var(--small-font-size-mobile);
+    }
+  }
+}

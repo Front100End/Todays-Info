@@ -1,0 +1,22 @@
+.LoginArticle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  a {
+    color: black;
+    text-decoration: none;
+    // :visited {
+    //   text-decoration: none;
+    // }
+  }
+
+  li::before {
+    content: "|";
+    padding: 0 5px;
+  }
+  li:first-child::before {
+    content: "";
+    padding: 0;
+  }
+}

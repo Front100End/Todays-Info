@@ -1,0 +1,8 @@
+.wrap {
+  margin: 250px auto auto auto;
+  max-width: 580px;
+  padding: 0 15px 0 15px;
+  @media screen and (max-width: 768px) {
+    margin: 150px auto auto auto;
+  }
+}

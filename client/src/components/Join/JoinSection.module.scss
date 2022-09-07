@@ -1,0 +1,12 @@
+.JoinSection {
+  margin-top: 60px;
+  p {
+    margin-top: 10px;
+    padding-left: 5px;
+  }
+  > span {
+    font-size: var(--small-font-size-mobile);
+    color: #ff5959;
+    padding-left: 10px;
+  }
+}

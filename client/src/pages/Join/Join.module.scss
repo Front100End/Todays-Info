@@ -1,0 +1,8 @@
+.Join {
+  max-width: 580px;
+  margin: 200px auto auto auto;
+  padding: 0 15px 80px 15px;
+  @media screen and (max-width: 768px) {
+    margin: 100px auto auto auto;
+  }
+}
