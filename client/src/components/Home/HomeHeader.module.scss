@@ -1,0 +1,47 @@
+.HomeHeader {
+  margin-top: 40px;
+  > ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    :first-child {
+      font-size: var(--logo-font-size);
+      font-weight: var(--bold-font-weight);
+      h1 {
+        margin-left: 3rem;
+      }
+    }
+    :last-child {
+      img {
+        margin-right: 3rem;
+      }
+    }
+  }
+  .todayInform {
+    margin: 70px 0 0 3rem;
+    font-size: var(--large-font-size-mobile);
+    font-weight: var(--medium-font-weight);
+  }
+
+  @media screen and (max-width: 768px) {
+    > ul {
+      :first-child {
+        font-size: var(--logo-font-size-mobile);
+        font-weight: var(--bold-font-weight);
+        h1 {
+          margin-left: 20px;
+        }
+      }
+      :last-child {
+        img {
+          margin-right: 20px;
+        }
+      }
+    }
+    .todayInform {
+      margin: 50px 20px 0 20px;
+      font-size: var(--medium-font-size);
+      font-weight: var(--medium-font-weight);
+    }
+  }
+}

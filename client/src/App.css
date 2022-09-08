@@ -1,12 +1,14 @@
 :root {
   --todays-main-color: #ececff;
   --subfont-color: #7b7b7b;
+  --logo-font-size: 42px;
+  --logo-font-size-mobile: 35px;
   --large-font-size: 30px;
   --large-font-size-mobile: 28px;
-  --medium-font-size: 20px;
-  --medium-font-size-mobile: 18px;
-  --small-font-size: 15px;
-  --small-font-size-mobile: 13px;
+  --medium-font-size: 1.1rem;
+  --medium-font-size-mobile: 0.9rem;
+  --small-font-size: 12px;
+  --small-font-size-mobile: 10px;
   --bold-font-weight: 700;
   --medium-font-weight: 600;
   --light-font-weight: 500;
@@ -16,7 +18,14 @@
   margin: 0;
   padding: 0;
 }
+body {
+  width: 100vw;
+  height: 100vh;
+}
 
 li {
   list-style: none;
 }
+/* ::-webkit-scrollbar {
+  display: none;
+} */

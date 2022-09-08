@@ -1,0 +1,21 @@
+.ChangeButton {
+  display: flex;
+  flex-flow: row-reverse;
+  margin-top: 2rem;
+
+  > ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 1rem;
+    li {
+      padding: 0 5px;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .ChangeButton {
+    display: none;
+  }
+}
