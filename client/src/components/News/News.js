@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import styles from "../Home/SectionChange/ChangeBox/FirstChange.module.scss";
 import Item from "../item";
 import LongItem from "../LongItem";
+import CreateNews from "./CreateNews";
 import { FirstMainBox, SecondMainBox } from "../../styles/Item";
 
 const News = (props) => {
@@ -11,7 +12,7 @@ const News = (props) => {
         className={styles.News}
         style={{ border: "5px solid gray" }}
       >
-        <div style={{ height: "100%", padding: "30px" }}>This is News</div>
+        <CreateNews></CreateNews>
       </FirstMainBox>
     ),
     2: (
@@ -24,6 +25,7 @@ const News = (props) => {
         <LongItem></LongItem>
         <LongItem></LongItem>
         <LongItem></LongItem>
+        <CreateNews></CreateNews>
       </SecondMainBox>
     ),
   };
