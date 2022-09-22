@@ -8,23 +8,12 @@ import { FirstMainBox, SecondMainBox } from "../../styles/Item";
 const News = (props) => {
   const NewsItem = {
     1: (
-      <FirstMainBox
-        className={styles.News}
-        style={{ border: "5px solid gray" }}
-      >
+      <FirstMainBox className={styles.News}>
         <CreateNews></CreateNews>
       </FirstMainBox>
     ),
     2: (
-      <SecondMainBox
-        className={styles.News}
-        style={{ border: "5px solid gray" }}
-      >
-        <LongItem></LongItem>
-        <LongItem></LongItem>
-        <LongItem></LongItem>
-        <LongItem></LongItem>
-        <LongItem></LongItem>
+      <SecondMainBox className={styles.News}>
         <CreateNews></CreateNews>
       </SecondMainBox>
     ),

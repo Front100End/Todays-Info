@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styles from "./JoinSection.module.scss";
 import { LongBarButton, LongBarInput } from "../../styles/LongBar";
+import { joinAction } from "./joinAction";
+import { Link } from "react-router-dom";
 
 const JoinSection = (props) => {
   const [id, setId] = useState("");
@@ -11,6 +13,9 @@ const JoinSection = (props) => {
   const [CheckState, setCheckState] = useState(false);
 
   const checkPassword = () => {
+    if (password == "") {
+      setCheckState(false);
+    }
     if (passwordCheck == password) {
       setCheckState(true);
     } else {
@@ -58,8 +63,27 @@ const JoinSection = (props) => {
           setPasswordCheck(e.target.value);
         }}
       ></LongBarInput>
-      {CheckState ? "" : <span>※ 비밀번호가 일치하지 않습니다.</span>}
-      <LongBarButton>가입하기</LongBarButton>
+      {CheckState ? (
+        <span style={{ color: "#00e676" }}>※ 비밀번호가 일치합니다.</span>
+      ) : (
+        <span>※ 비밀번호가 일치하지 않습니다.</span>
+      )}
+      <LongBarButton
+        onClick={() => {
+          if (
+            CheckState === true &&
+            id !== "" &&
+            email !== "" &&
+            nickname !== ""
+          ) {
+            joinAction(id, nickname, email, password);
+          } else {
+            alert("비어있는 칸이 있는지 확인해주세요.");
+          }
+        }}
+      >
+        가입하기
+      </LongBarButton>
     </section>
   );
 };
