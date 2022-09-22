@@ -1,3 +1,12 @@
+:root {
+  --pc-toggle-button-size: 30px;
+  --pc-toggle-width: 110px;
+  --pc-toggle-height: 35px;
+  --pc-left-margin: -100px;
+  --mobile-toggle-width: 80px;
+  --mobile-toggle-height: 20px;
+  --mobile-left-margin: -70px;
+}
 .HomeHeader {
   margin-top: 40px;
   > ul {
@@ -12,8 +21,32 @@
       }
     }
     :last-child {
+      position: relative;
       img {
+        width: var(--pc-toggle-button-size);
+        height: var(--pc-toggle-button-size);
         margin-right: 3rem;
+      }
+      > div {
+        flex-direction: column;
+        position: absolute;
+        top: var(--pc-toggle-button-size);
+        left: var(--pc-left-margin);
+        border-radius: 10px;
+        border: 0.5px solid black;
+        :last-child {
+          border: none;
+        }
+        > button {
+          animation-name: pcToggleAnimation;
+          animation-duration: 0.3s;
+          animation-fill-mode: forwards;
+          width: var(--pc-toggle-width);
+          height: var(--pc-toggle-height);
+          border-bottom: 1px black solid;
+          font-size: var(--small-font-size);
+          font-weight: var(--small-font-weight);
+        }
       }
     }
   }
@@ -36,6 +69,18 @@
         img {
           margin-right: 20px;
         }
+        > div {
+          top: var(--mobile-toggle-button-size);
+          left: var(--mobile-left-margin);
+
+          > button {
+            animation-name: mobileToggleAnimation;
+            width: var(--mobile-toggle-width);
+            height: var(--mobile-toggle-height);
+            font-size: var(--small-font-size);
+            font-weight: var(--small-font-weight);
+          }
+        }
       }
     }
     .todayInform {
@@ -43,5 +88,30 @@
       font-size: var(--medium-font-size);
       font-weight: var(--medium-font-weight);
     }
+  }
+}
+
+@keyframes pcToggleAnimation {
+  0% {
+    color: #fff;
+    width: 0;
+    height: 0;
+  }
+  100% {
+    color: #000;
+    width: var(--pc-toggle-width);
+    height: var(--pc-toggle-height);
+  }
+}
+@keyframes mobileToggleAnimation {
+  0% {
+    color: #fff;
+    width: 0;
+    height: 0;
+  }
+  100% {
+    color: #000;
+    width: var(--mobile-toggle-width);
+    height: var(--mobile-toggle-height);
   }
 }

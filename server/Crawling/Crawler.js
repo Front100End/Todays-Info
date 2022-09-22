@@ -1,9 +1,7 @@
-const request = require("request");
-const iconv = require("iconv-lite");
-const charset = require("charset");
-const axios = require("axios");
+import iconv from "iconv-lite";
+import axios from "axios";
 
-const crawlerDecode = async (URI, decoding) => {
+export const crawlerDecode = async (URI, decoding) => {
   try {
     let result = await axios.get(`${URI}`, { responseType: "arraybuffer" });
     const decodedResult = iconv.decode(result.data, `${decoding}`).toString();
@@ -12,15 +10,11 @@ const crawlerDecode = async (URI, decoding) => {
     console.log(error);
   }
 };
-const crawler = async (URI, decoding) => {
+export const crawler = async (URI) => {
   try {
-    let result = await axios.get(`${URI}`, { responseType: "arraybuffer" });
-    const decodedResult = iconv.decode(result.data, `${decoding}`).toString();
-    return decodedResult;
+    let result = await axios.get(`${URI}`);
+    return result;
   } catch (error) {
     console.log(error);
   }
 };
-
-module.exports = crawlerDecode;
-module.exports = crawler;

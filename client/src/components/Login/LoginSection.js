@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import styles from "./LoginSection.module.scss";
 import { LongBarInput, LongBarButton } from "../../styles/LongBar";
+import { loginAction } from "./loginAction";
 import { Link } from "react-router-dom";
-import * as api from "../../api/LoginApi";
+import * as api from "../../api/registerAPI";
 
 const LoginSection = (props) => {
   const [userId, setUserId] = useState("");
   const [userPassword, setUserPassword] = useState("");
-
-  const loginRequest = async (id, password) => {};
 
   return (
     <section className={styles.LoginSection}>
@@ -24,14 +23,12 @@ const LoginSection = (props) => {
         value={userPassword}
         onChange={(e) => setUserPassword(e.target.value)}
       ></LongBarInput>
-      <Link to={`/home`}>
-        <LongBarButton
-          type="submit"
-          onClick={() => loginRequest(userId, userPassword)}
-        >
-          로그인
-        </LongBarButton>
-      </Link>
+      <LongBarButton
+        type="submit"
+        onClick={() => loginAction(userId, userPassword)}
+      >
+        로그인
+      </LongBarButton>
     </section>
   );
 };
