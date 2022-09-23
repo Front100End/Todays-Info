@@ -1,13 +1,15 @@
 import { response } from "express";
 import { newsFetching } from "./Crawling/NewsFetching.js";
 import { StockFetching } from "./Crawling/StockFetching.js";
-import { createUserToken, authToken } from "./User/userToken.js";
+import { createUserToken } from "./User/userToken.js";
 import express from "express";
 import cors from "cors";
 import mysql from "mysql2/promise";
 import dotenv from "dotenv";
 import bcrypt from "bcrypt";
+import cookie from "cookie";
 import cookieParser from "cookie-parser";
+import jwt from "jsonwebtoken";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -26,6 +28,7 @@ const corsOptions = {
       callback(new Error("Not Allowed Origin!"));
     }
   },
+  credentials: true,
 };
 app.use(cors(corsOptions));
 
@@ -61,19 +64,31 @@ app.post("/api/users/login", async (req, res) => {
         message: "존재하지 않은 아이디입니다.",
       });
     }
+
     if (user) {
       let hashPassword = user[0][0].userPassword;
       let passwordCheck = await bcrypt.compare(password, hashPassword);
+      let cookie = req.cookies.accessCookie;
+
       if (id === user[0][0].userId && passwordCheck === true) {
         let id = user[0][0].id;
-        let token = createUserToken().access(id);
-        let insertToken = await connection.query(
-          `UPDATE user SET token = ? WHERE id = ?`,
-          [token, id]
-        );
-        res.cookie("loginCookie", token, {
-          httpOnly: true,
-        });
+
+        if (!user[0][0].token) {
+          let token = createUserToken().access(id);
+          let insertToken = await connection.query(
+            `UPDATE user SET token = ? WHERE id = ?`,
+            [token, id]
+          );
+          res.cookie("accessCookie", token);
+        } else if (!cookie) {
+          let token = createUserToken().access(id);
+          let insertToken = await connection.query(
+            `UPDATE user SET token = ? WHERE id = ?`,
+            [token, id]
+          );
+          res.cookie("accessCookie", token);
+        }
+
         res.status(200).json({
           loginSuccess: true,
           message: "success",
@@ -116,8 +131,7 @@ app.post("/api/users/join", async (req, res) => {
         "INSERT INTO user(userId,userPassword,userNickname,userEmail) VALUES(?,?,?,?)",
         [id, hashPassword, nickname, email]
       );
-      res.send("회원가입이 완료되었습니다.");
-      connection.release();
+      res.send("join success");
     } catch (err) {
       console.log("err : ", err);
       res.status(500).send("somethings broke");
@@ -126,6 +140,52 @@ app.post("/api/users/join", async (req, res) => {
     connection.release();
     return res.status(400).json({ message: "이미 가입된 아이디입니다." });
   }
+  connection.release();
+});
+
+//---------인증---------
+
+app.get("/api/users/auth", async (req, res) => {
+  //브라우저에서 쿠키찾기
+  let token = req.cookies.accessCookie;
+  let connection = await pool.getConnection(async (conn) => {
+    if (err) throw err;
+    return conn;
+  });
+  try {
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, function (err, decoded) {
+      //유저 아이디 확인.
+      const findUser = async (decoded) => {
+        let user;
+        const jwtCheck = await connection.query(
+          `SELECT * FROM user WHERE id = ? and token = ?`,
+          [decoded, token]
+        );
+        if (!jwtCheck) return res.json({ isAuth: false, error: true });
+
+        user = jwtCheck[0][0];
+
+        res.status(200).json({
+          isAuth: true,
+          isAdmin: user.id === 0 ? true : false,
+          id: user.id,
+          userId: user.userId,
+          userNickname: user.userNickname,
+          userEmail: user.userEmail,
+        });
+      };
+      findUser(decoded.id);
+    });
+  } catch (err) {
+    res.json({
+      isAuth: false,
+      error: err,
+    });
+  }
+
+  // 쿠키에 저장된 토큰 값 확인
+  // 토큰 디코드하면 나오는 id와 토큰 값을 DB의 저장값과 비교
+  connection.release();
 });
 
 //---------크롤링---------

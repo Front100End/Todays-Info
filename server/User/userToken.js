@@ -14,7 +14,3 @@ export const createUserToken = (id) => {
     },
   };
 };
-
-export const authToken = (req, res, next) => {
-  let token = req.cookies.loginCookie;
-};

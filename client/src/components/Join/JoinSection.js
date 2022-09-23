@@ -3,6 +3,7 @@ import styles from "./JoinSection.module.scss";
 import { LongBarButton, LongBarInput } from "../../styles/LongBar";
 import { joinAction } from "./joinAction";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const JoinSection = (props) => {
   const [id, setId] = useState("");
@@ -11,6 +12,8 @@ const JoinSection = (props) => {
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
   const [CheckState, setCheckState] = useState(false);
+
+  const navigate = useNavigate();
 
   const checkPassword = () => {
     if (password == "") {
@@ -76,7 +79,7 @@ const JoinSection = (props) => {
             email !== "" &&
             nickname !== ""
           ) {
-            joinAction(id, nickname, email, password);
+            joinAction(id, nickname, email, password, navigate);
           } else {
             alert("비어있는 칸이 있는지 확인해주세요.");
           }

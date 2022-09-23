@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom";
 import * as api from "../../api/registerAPI";
 
-export const loginAction = async (id, password) => {
+export const loginAction = async (id, password, navigate) => {
   let loginResult = await api.loginRequest(id, password);
-  console.log(loginResult);
+  if (loginResult.data.loginSuccess === true) {
+    navigate("/");
+  } else {
+    console.log(loginResult.data.message);
+  }
 };
