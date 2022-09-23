@@ -8,9 +8,9 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route exact path={`/`} element={<Login />}></Route>
+        <Route exact path={`/login`} element={<Login />}></Route>
         <Route exact path={`/join`} element={<Join />}></Route>
-        <Route exact path={`/home`} element={<Home />}></Route>
+        <Route exact path={`/`} element={<Home />}></Route>
         {/* 추후 / 과 /home 을 변경 메인을 /으로 login은 /login으로 변경 예정 */}
       </Routes>
     </BrowserRouter>
