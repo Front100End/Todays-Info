@@ -7,17 +7,31 @@ import useAuthAction from "../../hooks/useAuthAction";
 import { useSelector } from "react-redux";
 const Home = (props) => {
   const [accessState, setAccessState] = useState(false);
-  let access = useAuthAction().then((response) => setAccessState(response));
+  const [loading, setLoading] = useState(false);
+  const homeLoading = (state) => {
+    setLoading(state);
+  };
+
+  const access = useAuthAction(homeLoading).then((response) =>
+    setAccessState(response)
+  );
   const User = useSelector((state) => state.userReducer.currentUser);
+
   useEffect(() => {
     console.log(accessState);
   }, []);
 
   return (
     <div className={styles.Home}>
-      <HomeHeader></HomeHeader>
-      <HomeSection></HomeSection>
-      <HomeFooter></HomeFooter>
+      {loading ? (
+        <React.Fragment>
+          <HomeHeader></HomeHeader>
+          <HomeSection></HomeSection>
+          <HomeFooter></HomeFooter>
+        </React.Fragment>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

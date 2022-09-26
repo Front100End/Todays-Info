@@ -16,11 +16,13 @@
 .gridFirstItem {
   grid-area: a;
   height: 70vh;
+  min-height: 700px;
 }
 .gridSecondItem {
   grid-area: b;
   height: 70vh;
   overflow-y: scroll;
+  min-height: 700px;
 }
 
 .News {

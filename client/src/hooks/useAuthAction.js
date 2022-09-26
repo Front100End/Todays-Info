@@ -4,7 +4,7 @@ import axios from "axios";
 import { setUser } from "../modules/userReducer";
 import { Navigate, useNavigate } from "react-router-dom";
 
-const useAuthAction = async (route) => {
+const useAuthAction = async (loadingFunc) => {
   const [accessState, setAccessState] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -19,11 +19,13 @@ const useAuthAction = async (route) => {
         console.log("인증성공");
         setAccessState(true);
         dispatch(setUser(res.data));
+        loadingFunc(true);
         navigate(`/`);
       } else {
         //인증 실패
         console.log("인증실패");
         setAccessState(false);
+        loadingFunc(false);
         navigate(`/login`);
       }
     } catch (err) {
