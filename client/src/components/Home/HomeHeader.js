@@ -1,31 +1,62 @@
 import React, { useState, useEffect, useRef } from "react";
 import styles from "./HomeHeader.module.scss";
 import plusImage from "../../images/circle-plus-solid.svg";
+import user from "../../images/user-solid.svg";
 import { MediumIcon } from "../../styles/Icons";
 import { HomeHeaderTime } from "../../functions/Times";
+import { logoutAction } from "../Login/logoutAction";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 const HomeHeader = (props) => {
   const [headerTime, setHeaderTime] = useState();
   const [plusState, setPlusState] = useState(false);
+  const [myPageState, setMyPageState] = useState(false);
+  const navigate = useNavigate();
+  const userInfo = useSelector((state) => state.userReducer.currentUser);
+
   useEffect(() => {
     setHeaderTime(HomeHeaderTime());
+    console.log(userInfo[0]);
   }, []);
 
   const plusStateToggle = () => {
+    if (myPageState) {
+      setMyPageState((current) => !current);
+    }
     setPlusState((current) => !current);
+  };
+  const myPageStateToggle = () => {
+    if (plusState) {
+      setPlusState((current) => !current);
+    }
+    setMyPageState((current) => !current);
   };
 
   return (
     <header className={styles.HomeHeader}>
       <ul>
         <li>
-          <h1>Sseong's</h1>
+          <h1>{userInfo[0].userNickname}'s</h1>
         </li>
         <li>
-          <MediumIcon src={plusImage} onClick={plusStateToggle}></MediumIcon>
+          <MediumIcon
+            src={plusImage}
+            onClick={() => plusStateToggle()}
+          ></MediumIcon>
+          <MediumIcon
+            src={user}
+            onClick={() => myPageStateToggle()}
+          ></MediumIcon>
           <div style={plusState ? { display: "flex" } : { display: "none" }}>
             <button>날씨</button>
             <button>버스</button>
             <button>주식</button>
+          </div>
+          <div style={myPageState ? { display: "flex" } : { display: "none" }}>
+            <button onClick={() => logoutAction(userInfo[0].id, navigate)}>
+              로그아웃
+            </button>
           </div>
         </li>
       </ul>

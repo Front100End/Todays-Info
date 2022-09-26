@@ -10,6 +10,7 @@ import bcrypt from "bcrypt";
 import cookie from "cookie";
 import cookieParser from "cookie-parser";
 import jwt from "jsonwebtoken";
+import { authFindUser } from "./Middleware/auth.js";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -61,7 +62,7 @@ app.post("/api/users/login", async (req, res) => {
       //일치하는 아이디 없을경우
       return res.json({
         loginSuccess: false,
-        message: "존재하지 않은 아이디입니다.",
+        message: "※ 존재하지 않은 아이디입니다.",
       });
     }
 
@@ -97,19 +98,44 @@ app.post("/api/users/login", async (req, res) => {
         console.log("password틀림");
         res.json({
           loginSuccess: false,
-          message: "password가 틀렸습니다.",
+          message: "※ 비밀번호가 틀렸습니다.",
         });
       }
     } else {
-      console.log("가입되지 않은 회원입니다.");
+      console.log("※ 가입되지 않은 회원입니다.");
       res.json({
         loginSuccess: false,
-        message: "가입되지 않은 회원입니다.",
+        message: "※ 가입되지 않은 회원입니다.",
       });
     }
     connection.release();
   } catch (err) {
     console.log(`error : ${err}`);
+  }
+});
+
+app.post("/api/users/logout", async (req, res) => {
+  try {
+    let { id } = req.body;
+    let connection = await pool.getConnection(async (conn) => {
+      if (err) throw err;
+      return conn;
+    });
+    let logoutUser = await connection.query(
+      `UPDATE user SET token="" WHERE id = ?`,
+      [id]
+    );
+    res.clearCookie("accessCookie");
+    return res.json({
+      logoutSuccess: true,
+      message: "로그아웃이 정상적으로 실행됐습니다..",
+    });
+  } catch (err) {
+    return res.json({
+      logoutSuccess: false,
+      message: "로그아웃에 실패했습니다.",
+      error: err,
+    });
   }
 });
 

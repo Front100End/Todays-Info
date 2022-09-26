@@ -12,6 +12,15 @@ export const loginRequest = async (id, password) =>
     { withCredentials: true }
   );
 
+export const logoutRequest = async (id) =>
+  axios.post(
+    "http://localhost:5000/api/users/logout",
+    {
+      id: id,
+    },
+    { withCredentials: true }
+  );
+
 export const joinRequest = async (id, nickname, email, password) =>
   axios.post(
     "http://localhost:5000/api/users/join",

@@ -12,6 +12,7 @@
   --bold-font-weight: 700;
   --medium-font-weight: 600;
   --light-font-weight: 500;
+  --notice-color: #ea0000;
 }
 * {
   box-sizing: border-box;

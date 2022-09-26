@@ -5,4 +5,11 @@
   @media screen and (max-width: 768px) {
     margin: 24px auto 0 auto;
   }
+  .loginGuide {
+    display: flex;
+    align-items: center;
+    font-size: var(--small-font-size);
+    color: var(--notice-color);
+    margin: 5px 0 0 10px;
+  }
 }

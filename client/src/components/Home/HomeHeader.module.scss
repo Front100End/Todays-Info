@@ -1,11 +1,14 @@
 :root {
-  --pc-toggle-button-size: 30px;
-  --pc-toggle-width: 110px;
-  --pc-toggle-height: 35px;
-  --pc-left-margin: -100px;
-  --mobile-toggle-width: 80px;
-  --mobile-toggle-height: 20px;
-  --mobile-left-margin: -70px;
+  --toggle-button-size-pc: 30px;
+  --toggle-width-pc: 110px;
+  --toggle-height-pc: 35px;
+  --plus-top-margin-pc: 35px;
+  --plus-left-margin-pc: -90px;
+  --mypage-left-margin-pc: -50px;
+  --toggle-width-mobile: 80px;
+  --toggle-height-mobile: 20px;
+  --plus-left-margin-mobile: -65px;
+  --mypage-left-margin-mobile: -25px;
 }
 .HomeHeader {
   margin-top: 40px;
@@ -23,30 +26,41 @@
     :last-child {
       position: relative;
       img {
-        width: var(--pc-toggle-button-size);
-        height: var(--pc-toggle-button-size);
+        width: var(--toggle-button-size-pc);
+        height: var(--toggle-button-size-pc);
         margin-right: 3rem;
       }
+      img:first-child {
+        margin-right: 0.8rem;
+      }
+
       > div {
         flex-direction: column;
         position: absolute;
-        top: var(--pc-toggle-button-size);
-        left: var(--pc-left-margin);
-        border-radius: 10px;
+        top: var(--plus-top-margin-pc);
+        left: var(--plus-left-margin-pc);
+        border-radius: 5px;
         border: 0.5px solid black;
         :last-child {
           border: none;
         }
+
         > button {
           animation-name: pcToggleAnimation;
           animation-duration: 0.3s;
           animation-fill-mode: forwards;
-          width: var(--pc-toggle-width);
-          height: var(--pc-toggle-height);
+          width: var(--toggle-width-pc);
+          height: var(--toggle-height-pc);
           border-bottom: 1px black solid;
           font-size: var(--small-font-size);
           font-weight: var(--small-font-weight);
+          &:hover {
+            background-color: #eceff1;
+          }
         }
+      }
+      > div:last-child {
+        left: var(--mypage-left-margin-pc);
       }
     }
   }
@@ -70,16 +84,19 @@
           margin-right: 20px;
         }
         > div {
-          top: var(--mobile-toggle-button-size);
-          left: var(--mobile-left-margin);
+          top: var(--toggle-button-size-mobile);
+          left: var(--plus-left-margin-mobile);
 
           > button {
             animation-name: mobileToggleAnimation;
-            width: var(--mobile-toggle-width);
-            height: var(--mobile-toggle-height);
+            width: var(--toggle-width-mobile);
+            height: var(--toggle-height-mobile);
             font-size: var(--small-font-size);
             font-weight: var(--small-font-weight);
           }
+        }
+        > div:last-child {
+          left: var(--mypage-left-margin-mobile);
         }
       }
     }
@@ -94,24 +111,20 @@
 @keyframes pcToggleAnimation {
   0% {
     color: #fff;
-    width: 0;
     height: 0;
   }
   100% {
     color: #000;
-    width: var(--pc-toggle-width);
-    height: var(--pc-toggle-height);
+    height: var(--toggle-height-pc);
   }
 }
 @keyframes mobileToggleAnimation {
   0% {
     color: #fff;
-    width: 0;
     height: 0;
   }
   100% {
     color: #000;
-    width: var(--mobile-toggle-width);
-    height: var(--mobile-toggle-height);
+    height: var(--toggle-height-mobile);
   }
 }
