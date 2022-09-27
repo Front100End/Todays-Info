@@ -107,8 +107,8 @@ app.post("/api/users/login", async (req, res) => {
         loginSuccess: false,
         message: "※ 가입되지 않은 회원입니다.",
       });
+      connection.release();
     }
-    connection.release();
   } catch (err) {
     console.log(`error : ${err}`);
   }
@@ -137,6 +137,7 @@ app.post("/api/users/logout", async (req, res) => {
       error: err,
     });
   }
+  connection.release();
 });
 
 //---------회원가입---------
@@ -228,8 +229,14 @@ app.get("/api/stocks", (req, res) => {
 
 //---------open API---------
 
-let stockSearchURI =
-  "http://api.seibro.or.kr/openapi/service/StockSvc/getStkIsinByNmN1?secnNm=삼성&numOfRows=2&pageNo=1&ServiceKey=";
+app.post("api/stocks/search", async (req, res) => {
+  let { searchKeyword } = req.body;
+  console.log(searchKeyword);
+  // let stockSearchURI =
+  //   "http://api.seibro.or.kr/openapi/service/StockSvc/getStkIsinByNmN1?secnNm=삼성&numOfRows=2&pageNo=1&ServiceKey=";
+  // REACT_APP_STOCKCODE_SEARCH_API_KEY
+  res.json({ isWord: true, searchKeyword: searchKeyword });
+});
 
 app.listen(PORT, async () => {
   // pool = await mysql.createPool({

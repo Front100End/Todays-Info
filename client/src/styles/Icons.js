@@ -1,5 +1,11 @@
 import styled from "styled-components";
 
+export const LargeIcon = styled.img`
+  display: inline-block;
+  width: 45px;
+  height: 45px;
+`;
+
 export const MediumIcon = styled.img`
   display: inline-block;
   width: 35px;

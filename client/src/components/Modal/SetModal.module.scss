@@ -1,0 +1,51 @@
+.SetModal {
+  position: relative;
+  margin: 50px 30px 20px 30px;
+  border-radius: 10px;
+  min-height: 70vh;
+  z-index: 9999;
+  border: 1px solid #000;
+  > ul {
+    //modalIcon
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: -25px;
+    left: 50px;
+    background-color: #ffffff;
+    > li {
+      padding: 0 5px;
+      > img {
+        display: inline-block;
+        width: 45px;
+        height: 45px;
+      }
+    }
+  }
+  > button {
+    //modalCloseButton
+    display: block;
+    width: 25px;
+    height: 25px;
+    position: absolute;
+    border: 1px solid black;
+    border-radius: 5px;
+    right: 10px;
+    top: -35px;
+  }
+  @media screen and (max-width: 768px) {
+    > ul {
+      > li {
+        padding: 0 3px;
+        > img {
+          display: inline-block;
+          width: 35px;
+          height: 35px;
+        }
+      }
+      top: -20px;
+      left: 40px;
+    }
+  }
+}
