@@ -1,7 +1,9 @@
 .Home {
   position: relative;
+}
+
+.homeWrap {
   max-width: 1280px;
-  height: 100vh;
   margin: 0 auto;
   padding: 0 100px;
   @media screen and (max-width: 768px) {

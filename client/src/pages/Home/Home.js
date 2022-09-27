@@ -24,11 +24,11 @@ const Home = (props) => {
   return (
     <div className={styles.Home}>
       {loading ? (
-        <React.Fragment>
+        <div className={styles.homeWrap}>
           <HomeHeader></HomeHeader>
           <HomeSection></HomeSection>
           <HomeFooter></HomeFooter>
-        </React.Fragment>
+        </div>
       ) : (
         ""
       )}
