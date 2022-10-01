@@ -4,7 +4,7 @@ import { crawlerDecode } from "./Crawler.js";
 
 export const StockFetching = async (itemCode) => {
   const html = await crawlerDecode(
-    "https://finance.naver.com/item/main.nhn?code=005930",
+    "https://finance.naver.com/item/main.nhn?code=377300",
     "euc-kr"
   );
   const $ = cheerio.load(html);

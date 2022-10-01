@@ -11,10 +11,6 @@ const Weathers = (props) => {
         style={{ border: "5px solid green" }}
       >
         <Item></Item>
-        <Item></Item>
-        <Item></Item>
-        <Item></Item>
-        <Item></Item>
       </FirstSubBox>
     ),
     2: (
@@ -22,10 +18,6 @@ const Weathers = (props) => {
         className={styles.Weather}
         style={{ border: "5px solid green" }}
       >
-        <Item></Item>
-        <Item></Item>
-        <Item></Item>
-        <Item></Item>
         <Item></Item>
       </SecondSubBox>
     ),

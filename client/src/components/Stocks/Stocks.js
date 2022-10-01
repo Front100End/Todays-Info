@@ -8,11 +8,6 @@ const Stocks = (props) => {
     1: (
       <FirstSubBox className={styles.Stock} style={{ border: "5px solid red" }}>
         <Item></Item>
-        <Item></Item>
-        <Item></Item>
-        <Item></Item>
-        <Item></Item>
-        <Item></Item>
       </FirstSubBox>
     ),
     2: (
@@ -20,10 +15,6 @@ const Stocks = (props) => {
         className={styles.Stock}
         style={{ border: "5px solid red" }}
       >
-        <Item></Item>
-        <Item></Item>
-        <Item></Item>
-        <Item></Item>
         <Item></Item>
       </SecondSubBox>
     ),

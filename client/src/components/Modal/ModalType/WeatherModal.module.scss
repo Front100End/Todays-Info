@@ -1,4 +1,4 @@
-.StockModal {
+.WeatherModal {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -6,7 +6,7 @@
   margin: 30px;
   padding: 20px;
   height: 100%;
-  background-color: #fff9f9;
+  background-color: #f6fff8;
   box-shadow: var(--shadow-small);
   > ul {
     > li {
@@ -36,6 +36,7 @@
         flex-direction: column;
         align-items: center;
         margin-top: 10px;
+        overflow-y: scroll;
 
         > li {
           display: flex;
@@ -49,6 +50,11 @@
             width: 100%;
           }
         }
+      }
+      > p {
+        font-size: var(--small-font-size);
+        text-align: center;
+        margin-top: 10px;
       }
     }
   }
