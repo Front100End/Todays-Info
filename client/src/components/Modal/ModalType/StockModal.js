@@ -4,11 +4,19 @@ import * as api from "../../../api/openAPI";
 
 const StockModal = (props) => {
   const [stockName, setStockName] = useState("");
+  const [stockStorage, setStockStorage] = useState([]);
   const stockCodeSearch = async (e, stockName) => {
     e.preventDefault();
-    let searchResult = await api.stockRequest(stockName);
-    console.log(searchResult);
+    let searchResult = await api.stockSearchRequest(stockName);
+    let arraySearchResult = [];
+    if (searchResult.data.length === undefined) {
+      arraySearchResult = [searchResult.data];
+    } else {
+      arraySearchResult = searchResult.data;
+    }
+    setStockStorage(arraySearchResult);
   };
+
   return (
     <div className={styles.StockModal}>
       <ul>
@@ -28,7 +36,31 @@ const StockModal = (props) => {
           </form>
         </li>
         <li>
-          <div></div>
+          {stockStorage.length !== 0 ? (
+            <ul>
+              {stockStorage ? (
+                stockStorage.map((current, index) => {
+                  return (
+                    <li key={index}>
+                      <button>
+                        {current.korSecnNm.length < 10
+                          ? current.korSecnNm
+                          : current.korSecnNm.slice(0, 10)}
+
+                        {current.engSecnNm.length < 10
+                          ? `(${current.engSecnNm})`
+                          : `(${current.engSecnNm.slice(0, 10) + "..."})`}
+                      </button>
+                    </li>
+                  );
+                })
+              ) : (
+                <p>검색 결과가 없습니다.</p>
+              )}
+            </ul>
+          ) : (
+            ""
+          )}
         </li>
       </ul>
     </div>

@@ -47,5 +47,6 @@ export const newsFetching = async () => {
       source: source,
     });
   });
+
   return newsArr;
 };

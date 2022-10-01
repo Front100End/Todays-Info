@@ -7,6 +7,7 @@ import cors from "cors";
 import mysql from "mysql2/promise";
 import dotenv from "dotenv";
 import bcrypt from "bcrypt";
+import axios from "axios";
 import cookie from "cookie";
 import cookieParser from "cookie-parser";
 import jwt from "jsonwebtoken";
@@ -226,16 +227,64 @@ app.get("/api/stocks", (req, res) => {
   //stock crawling
   StockFetching().then((response) => res.send(response));
 });
-
 //---------open API---------
 
-app.post("api/stocks/search", async (req, res) => {
+app.post("/api/stocks/search", async (req, res) => {
   let { searchKeyword } = req.body;
-  console.log(searchKeyword);
-  // let stockSearchURI =
-  //   "http://api.seibro.or.kr/openapi/service/StockSvc/getStkIsinByNmN1?secnNm=삼성&numOfRows=2&pageNo=1&ServiceKey=";
-  // REACT_APP_STOCKCODE_SEARCH_API_KEY
-  res.json({ isWord: true, searchKeyword: searchKeyword });
+  let numOfRows = 10;
+  let pageNo = 1;
+  let serviceKey = process.env.REACT_APP_STOCKCODE_SEARCH_API_KEY;
+  let serachCodeURI = `http://api.seibro.or.kr/openapi/service/StockSvc/getStkIsinByNmN1?secnNm=${searchKeyword}&numOfRows=${numOfRows}&pageNo=${pageNo}&ServiceKey=${serviceKey}`;
+  try {
+    let searchResult = await axios.get(encodeURI(serachCodeURI));
+    console.log(searchResult.data.response.body.items.item);
+    res.send(searchResult.data.response.body.items.item);
+  } catch (err) {
+    res.json({ isSucces: false, error: err });
+  }
+});
+
+app.get("/api/weather/search", (req, res) => {
+  const value = req.query.searchKeyword;
+  axios
+    .get(`https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode`, {
+      params: {
+        query: value,
+        display: 5,
+      },
+      headers: {
+        "X-NCP-APIGW-API-KEY-ID": `${process.env.REACT_APP_X_NCP_APIGW_API_KEY_ID}`,
+        "X-NCP-APIGW-API-KEY": `${process.env.REACT_APP_X_NCP_APIGW_API_KEY}`,
+      },
+    })
+    .then((response) => {
+      res.send(response.data.addresses);
+    });
+});
+
+app.post("/api/weather", (req, res) => {
+  const { x, y } = req.body;
+  let weatherApiKey = process.env.REACT_APP_WEATHER_API_KEY;
+  let URI =
+    "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst";
+  try {
+    axios
+      .get(URI, {
+        params: {
+          serviceKey: weatherApiKey,
+          numOfRows: 10,
+          pageNo: 1,
+          dataType: `JSON`,
+          base_date: 20221001,
+          base_time: 1700,
+          nx: 55,
+          ny: 127,
+        },
+      })
+      .then((response) => res.send(response.data.response));
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 app.listen(PORT, async () => {

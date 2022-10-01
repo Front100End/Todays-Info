@@ -11,14 +11,6 @@ const Buses = (props) => {
         style={{ border: "5px solid blue" }}
       >
         <Item></Item>
-        <Item></Item>
-        <Item></Item>
-        <Item></Item>
-        <Item></Item>
-        <Item></Item>
-        <Item></Item>
-        <Item></Item>
-        <Item></Item>
       </FirstSubBox>
     ),
     2: (
@@ -26,10 +18,6 @@ const Buses = (props) => {
         className={styles.Stock}
         style={{ border: "5px solid blue" }}
       >
-        <Item></Item>
-        <Item></Item>
-        <Item></Item>
-        <Item></Item>
         <Item></Item>
       </SecondSubBox>
     ),
