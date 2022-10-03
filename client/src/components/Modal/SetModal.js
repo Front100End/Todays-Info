@@ -11,9 +11,9 @@ import stockIconImage from "../../images/ico_stock.png";
 const SetModal = ({ type, modalStateToggle }) => {
   const [modalType, setModalType] = useState("");
   const modalItems = {
-    weather: <WeatherModal></WeatherModal>,
-    bus: <BusModal></BusModal>,
-    stock: <StockModal></StockModal>,
+    weather: <WeatherModal modalStateToggle={modalStateToggle}></WeatherModal>,
+    bus: <BusModal modalStateToggle={modalStateToggle}></BusModal>,
+    stock: <StockModal modalStateToggle={modalStateToggle}></StockModal>,
   };
   const modalIcon = {
     weather: [weatherIconImage, "날씨", "#F6FFF8"],

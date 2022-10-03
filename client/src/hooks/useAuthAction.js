@@ -13,7 +13,6 @@ const useAuthAction = async (loadingFunc) => {
       const res = await axios.get("http://localhost:5000/api/users/auth", {
         withCredentials: true,
       });
-      console.log(res);
       if (res.data.isAuth === true) {
         //인증 성공
         console.log("인증성공");

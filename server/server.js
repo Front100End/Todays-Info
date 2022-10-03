@@ -216,6 +216,48 @@ app.get("/api/users/auth", async (req, res) => {
   connection.release();
 });
 
+//---------stock---------
+
+app.get("/stock/code", async (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+  let connection = await pool.getConnection(async (conn) => {
+    if (err) throw err;
+    return conn;
+  });
+  try {
+    let [rows] = await connection.query(
+      "SELECT * from stockcode WHERE id = ?",
+      [id]
+    );
+    connection.release();
+    return res.send(rows);
+  } catch (err) {
+    connection.release();
+    return res.json({ getStockCode: false, status: 500, error: err });
+  }
+});
+
+//현재는 빠른 개발을 위해 중복확인을 하지않을 것임. 추후 수정 예정.
+app.post("/stock/code", async (req, res) => {
+  const { id, stockCode } = req.body;
+  let connection = await pool.getConnection(async (conn) => {
+    if (err) throw err;
+    return conn;
+  });
+  try {
+    let [rows] = await connection.query(
+      "INSERT INTO stock(id,stockcode) VALUES(?,?)",
+      [id, stockCode]
+    );
+    connection.release();
+    return res.json({ postStockCode: true, status: 200 });
+  } catch (error) {
+    connection.release();
+    return res.json({ postStockCode: false, status: 500, error: error });
+  }
+});
+
 //---------크롤링---------
 
 app.get("/api/news", (req, res) => {
@@ -225,7 +267,11 @@ app.get("/api/news", (req, res) => {
 
 app.get("/api/stocks", (req, res) => {
   //stock crawling
-  StockFetching().then((response) => res.send(response));
+  const stockCode = req.query.stockCode;
+  StockFetching(stockCode).then((response) => {
+    console.log(response);
+    res.send(response);
+  });
 });
 //---------open API---------
 
@@ -240,7 +286,7 @@ app.post("/api/stocks/search", async (req, res) => {
     console.log(searchResult.data.response.body.items.item);
     res.send(searchResult.data.response.body.items.item);
   } catch (err) {
-    res.json({ isSucces: false, error: err });
+    res.json({ isSuccess: false, error: err });
   }
 });
 
