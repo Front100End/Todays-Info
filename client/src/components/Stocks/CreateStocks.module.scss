@@ -1,0 +1,59 @@
+.CreateStocks {
+  background-color: #ffe4ea;
+
+  border-radius: 10px;
+  box-shadow: var(--shadow-small);
+  margin: 10px;
+  padding: 20px;
+  > li {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: var(--shadow-small);
+    background-color: var(--stock-color);
+    margin-top: 15px;
+    &:first-child {
+      margin-top: 0;
+    }
+    > h3 {
+      display: flex;
+      align-items: center;
+      padding-bottom: 5px;
+
+      > img {
+        width: 30px;
+        height: 30px;
+      }
+      > p {
+        font-size: var(--medium-font-size);
+        font-weight: var(--medium-font-weight);
+      }
+    }
+
+    > p {
+      padding-bottom: 10px;
+      > em {
+        font-size: var(--medium-font-size);
+        font-style: normal;
+      }
+      img {
+        width: 10px;
+        height: 10px;
+        margin-left: 2%;
+      }
+      > span {
+        font-size: var(--small-font-size);
+        padding-left: 2px;
+        &:last-child {
+          margin-left: 2%;
+        }
+      }
+    }
+
+    > time {
+      font-size: 0.8rem;
+    }
+  }
+}

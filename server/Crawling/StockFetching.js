@@ -2,9 +2,9 @@
 import cheerio from "cheerio";
 import { crawlerDecode } from "./Crawler.js";
 
-export const StockFetching = async (itemCode) => {
+export const StockFetching = async (stockCode) => {
   const html = await crawlerDecode(
-    "https://finance.naver.com/item/main.nhn?code=377300",
+    `https://finance.naver.com/item/main.nhn?code=${stockCode}`,
     "euc-kr"
   );
   const $ = cheerio.load(html);
@@ -28,6 +28,5 @@ export const StockFetching = async (itemCode) => {
       comparePrice: comparePrice,
     });
   });
-  // console.log(stockArr);
+  return stockArr;
 };
-StockFetching();

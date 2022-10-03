@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styles from "./CreateNews.module.scss";
-import * as api from "../../api/itemAPI";
+import * as api from "../../api/crawlingAPI";
 import headerIcon from "../../images/ico_loudspeaker.png";
 import refreshIcon from "../../images/refresh_icon.png";
 

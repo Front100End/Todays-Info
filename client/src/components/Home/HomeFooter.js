@@ -4,9 +4,6 @@ import { useSelector } from "react-redux";
 
 const HomeFooter = (props) => {
   const User = useSelector((state) => state.userReducer.currentUser);
-  useEffect(() => {
-    console.log(User);
-  }, []);
 
   return <footer className={styles.HomeFooter}>{User.id}</footer>;
 };

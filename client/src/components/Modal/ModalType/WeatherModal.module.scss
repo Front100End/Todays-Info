@@ -6,7 +6,7 @@
   margin: 30px;
   padding: 20px;
   height: 100%;
-  background-color: #f6fff8;
+  background-color: var(--weather-color);
   box-shadow: var(--shadow-small);
   > ul {
     > li {

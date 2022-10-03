@@ -21,6 +21,10 @@
   --shadow-large: 0 30px 60px rgba(0, 0, 0, 0.12);
   --shadow-hover: 0 30px 60px rgba(0, 0, 0, 0.12);
   --shadow-sticky: 0 12px 10px -10px rgba(0, 0, 0, 0.12);
+
+  --weather-color: #f6fff8;
+  --bus-color: #fffef6;
+  --stock-color: #fff9f9;
 }
 * {
   box-sizing: border-box;

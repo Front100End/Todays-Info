@@ -1,20 +1,44 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./StockModal.module.scss";
-import * as api from "../../../api/openAPI";
+import * as openApi from "../../../api/openAPI";
+import * as setApi from "../../../api/setDataAPI";
+import * as crawlingApi from "../../../api/crawlingAPI";
+import { useDispatch, useSelector } from "react-redux";
+import { setStockCode, setStockData } from "../../../modules/stockReducer";
 
 const StockModal = (props) => {
   const [stockName, setStockName] = useState("");
   const [stockStorage, setStockStorage] = useState([]);
+  const dispatch = useDispatch();
+  const User = useSelector((state) => state.userReducer.currentUser);
+  const stockCodeArray = useSelector((state) => state.stockReducer.stockCode);
+
   const stockCodeSearch = async (e, stockName) => {
     e.preventDefault();
-    let searchResult = await api.stockSearchRequest(stockName);
+    let searchResult = await openApi.stockSearchRequest(stockName);
     let arraySearchResult = [];
+    if (searchResult.data.isSuccess === false) {
+      return;
+    }
     if (searchResult.data.length === undefined) {
       arraySearchResult = [searchResult.data];
     } else {
       arraySearchResult = searchResult.data;
     }
     setStockStorage(arraySearchResult);
+  };
+
+  const setStockItem = async (id, stockCode, stockName) => {
+    const StockData = {
+      stockCode: stockCode,
+      stockName: stockName,
+    };
+    dispatch(setStockCode(StockData)); //종목코드 dispatch
+    let crawlingData = await crawlingApi.getStocks(stockCode);
+    let crawlingArray = [crawlingData.data];
+    dispatch(setStockData(crawlingArray)); //종목코드 크롤링 결과 dispatch
+    let stockCodeData = await setApi.setStockCodeDB(id, stockCode); //종목코드 DB저장
+    props.modalStateToggle();
   };
 
   return (
@@ -42,7 +66,15 @@ const StockModal = (props) => {
                 stockStorage.map((current, index) => {
                   return (
                     <li key={index}>
-                      <button>
+                      <button
+                        onClick={() =>
+                          setStockItem(
+                            User[0].id,
+                            current.shotnIsin,
+                            current.korSecnNm
+                          )
+                        }
+                      >
                         {current.korSecnNm.length < 10
                           ? current.korSecnNm
                           : current.korSecnNm.slice(0, 10)}

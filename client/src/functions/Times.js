@@ -15,3 +15,18 @@ export const WeatherRequestParams = () => {
   const date = currentTime.getDate();
   const time = currentTime.toLocaleDateString();
 };
+
+export const stockFooterTime = () => {
+  const year = currentTime.getFullYear();
+  const month = currentTime.getMonth();
+  const date = currentTime.getDate();
+  const hour = currentTime.getHours();
+  const minute = currentTime.getMinutes();
+
+  let timeState = "AM";
+  if (hour > 12) {
+    timeState = "PM";
+  }
+
+  return `${year}.${month + 1}.${date} ${hour}:${minute}${timeState}`;
+};
