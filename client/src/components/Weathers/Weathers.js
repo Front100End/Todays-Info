@@ -2,23 +2,17 @@ import React from "react";
 import styles from "../Home/SectionChange/ChangeBox/FirstChange.module.scss";
 import Item from "../item";
 import { FirstSubBox, SecondSubBox } from "../../styles/Item";
-
+import CreateWeathers from "./CreateWeathers";
 const Weathers = (props) => {
   const SubItem = {
     1: (
-      <FirstSubBox
-        className={styles.Weather}
-        style={{ border: "5px solid green" }}
-      >
-        <Item></Item>
+      <FirstSubBox className={styles.Weather}>
+        <CreateWeathers></CreateWeathers>
       </FirstSubBox>
     ),
     2: (
-      <SecondSubBox
-        className={styles.Weather}
-        style={{ border: "5px solid green" }}
-      >
-        <Item></Item>
+      <SecondSubBox className={styles.Weather}>
+        <CreateWeathers></CreateWeathers>
       </SecondSubBox>
     ),
   };

@@ -1,0 +1,27 @@
+.CreateBuses {
+  width: 95%;
+  background-color: var(--bus-color);
+
+  position: relative;
+  border-radius: 10px;
+  box-shadow: var(--shadow-small);
+  margin: 10px auto 10px auto;
+  padding: 20px;
+  > li:first-child {
+    display: flex;
+    align-items: center;
+    justify-self: center;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+    background-color: var(--bus-color);
+    > img {
+      width: 30px;
+      height: 30px;
+    }
+    > h2 {
+      margin-left: 5px;
+      font-size: var(--medium-font-size);
+    }
+  }
+}

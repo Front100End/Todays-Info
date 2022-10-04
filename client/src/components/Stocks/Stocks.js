@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styles from "../Home/SectionChange/ChangeBox/FirstChange.module.scss";
 import { FirstSubBox, SecondSubBox } from "../../styles/Item";
 import CreateStocks from "./CreateStocks";
+import useStockInitData from "../../hooks/useStockInitData";
 
 const Stocks = (props) => {
+  const [loading, setLoading] = useState(false);
+  const loadingToggle = () => {
+    setLoading((current) => !current);
+  };
+  useStockInitData(loadingToggle);
+
   const SubItem = {
     1: (
       <FirstSubBox className={styles.Stock}>
@@ -19,7 +26,7 @@ const Stocks = (props) => {
 
   return (
     <React.Fragment>
-      <div>{SubItem[props.menuState]}</div>
+      {loading ? "" : <div>{SubItem[props.menuState]}</div>}
     </React.Fragment>
   );
 };
