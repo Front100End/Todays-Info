@@ -15,14 +15,12 @@ const useAuthAction = async (loadingFunc) => {
       });
       if (res.data.isAuth === true) {
         //인증 성공
-        console.log("인증성공");
         setAccessState(true);
         dispatch(setUser(res.data));
         loadingFunc(true);
         navigate(`/`);
       } else {
         //인증 실패
-        console.log("인증실패");
         setAccessState(false);
         loadingFunc(false);
         navigate(`/login`);

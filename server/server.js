@@ -219,17 +219,15 @@ app.get("/api/users/auth", async (req, res) => {
 //---------stock---------
 
 app.get("/stock/code", async (req, res) => {
-  const id = req.params.id;
-  console.log(id);
+  const id = req.query.id;
   let connection = await pool.getConnection(async (conn) => {
     if (err) throw err;
     return conn;
   });
   try {
-    let [rows] = await connection.query(
-      "SELECT * from stockcode WHERE id = ?",
-      [id]
-    );
+    let [rows] = await connection.query("SELECT * from stock WHERE id = ?", [
+      id,
+    ]);
     connection.release();
     return res.send(rows);
   } catch (err) {
@@ -258,6 +256,25 @@ app.post("/stock/code", async (req, res) => {
   }
 });
 
+app.post("/weather/location", async (req, res) => {
+  const { id, localName, x, y } = req.body;
+  let connection = await pool.getConnection(async (conn) => {
+    if (err) throw err;
+    return conn;
+  });
+  try {
+    let [rows] = await connection.query(
+      "INSERT INTO weather(id,localName,x,y) VALUES(?,?,?,?)",
+      [id, localName, x, y]
+    );
+    connection.release();
+    return res.json({ postStockCode: true, status: 200 });
+  } catch (error) {
+    connection.release();
+    return res.json({ postStockCode: false, status: 500, error: error });
+  }
+});
+
 //---------크롤링---------
 
 app.get("/api/news", (req, res) => {
@@ -269,7 +286,6 @@ app.get("/api/stocks", (req, res) => {
   //stock crawling
   const stockCode = req.query.stockCode;
   StockFetching(stockCode).then((response) => {
-    console.log(response);
     res.send(response);
   });
 });
@@ -283,8 +299,23 @@ app.post("/api/stocks/search", async (req, res) => {
   let serachCodeURI = `http://api.seibro.or.kr/openapi/service/StockSvc/getStkIsinByNmN1?secnNm=${searchKeyword}&numOfRows=${numOfRows}&pageNo=${pageNo}&ServiceKey=${serviceKey}`;
   try {
     let searchResult = await axios.get(encodeURI(serachCodeURI));
-    console.log(searchResult.data.response.body.items.item);
-    res.send(searchResult.data.response.body.items.item);
+    let arrayResult = [];
+    let filterSearchResult = [];
+    if (searchResult.data.response.body.items.item.length === undefined) {
+      //값이 하나일 경우 배열로 감싸줌.
+      arrayResult = [searchResult.data.response.body.items.item];
+      filterSearchResult = arrayResult.filter(
+        (current) => current.eltscYn === "Y"
+      ); //현재 상장중인 종목만을 filter
+      console.log(filterSearchResult);
+    } else {
+      filterSearchResult = searchResult.data.response.body.items.item.filter(
+        (current) => current.eltscYn === "Y"
+      ); //현재 상장중인 종목만을 filter
+      console.log(filterSearchResult);
+    }
+    // console.log(filterSearchResult);
+    res.send(filterSearchResult);
   } catch (err) {
     res.json({ isSuccess: false, error: err });
   }
@@ -310,24 +341,15 @@ app.get("/api/weather/search", (req, res) => {
 
 app.post("/api/weather", (req, res) => {
   const { x, y } = req.body;
-  let weatherApiKey = process.env.REACT_APP_WEATHER_API_KEY;
-  let URI =
-    "http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst";
+  const weatherBaseUrl = `https://api.openweathermap.org/data/2.5/onecall`;
   try {
     axios
-      .get(URI, {
-        params: {
-          serviceKey: weatherApiKey,
-          numOfRows: 10,
-          pageNo: 1,
-          dataType: `JSON`,
-          base_date: 20221001,
-          base_time: 1700,
-          nx: 55,
-          ny: 127,
-        },
-      })
-      .then((response) => res.send(response.data.response));
+      .get(
+        `${weatherBaseUrl}?lat=${y}&lon=${x}&exclude=minutely&appid=${process.env.REACT_APP_WEATHER_API_KEY}`
+      )
+      .then((response) => {
+        res.send(response.data);
+      });
   } catch (err) {
     console.log(err);
   }

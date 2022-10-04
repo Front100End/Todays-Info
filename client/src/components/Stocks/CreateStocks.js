@@ -8,7 +8,6 @@ import downIcon from "../../images/down_icon.png";
 
 const CreateStocks = (props) => {
   const [loading, setLoading] = useState(true);
-
   const [stockArray, setStockArray] = useState([]);
   const stockCode = useSelector((state) => state.stockReducer.stockCode);
   const stockData = useSelector((state) => state.stockReducer.stockData);
@@ -20,15 +19,23 @@ const CreateStocks = (props) => {
   }, [stockData]);
 
   return (
-    <ul className={styles.CreateStocks}>
-      {loading
+    <ul
+      className={styles.CreateStocks}
+      // style={
+      //   stockArray.length !== 0 ? { display: "block" } : { display: "none" }
+      // }
+    >
+      <li>
+        <img src={stockImage} alt="" />
+        <h2>주식</h2>
+      </li>
+      {loading === true
         ? ""
         : stockArray.map((current, index) => {
             return (
-              <li key={index}>
+              <li key={index} className={styles.stockItem}>
                 <h3>
-                  <img src={stockImage} alt="stock Image error" />
-                  <p>{stockCode[index].stockName}</p>
+                  <p>{current[3].stockName}</p>
                 </h3>
                 <p>
                   <em>{current[0].price}</em>

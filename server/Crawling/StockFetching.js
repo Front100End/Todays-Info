@@ -28,5 +28,11 @@ export const StockFetching = async (stockCode) => {
       comparePrice: comparePrice,
     });
   });
+
+  const stockName = $(".wrap_company > h2 > a").text();
+  stockArr.push({
+    stockName: stockName,
+  });
+
   return stockArr;
 };

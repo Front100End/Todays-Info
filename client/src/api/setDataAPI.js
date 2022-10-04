@@ -5,3 +5,10 @@ export const setStockCodeDB = (id, stockCode) =>
     id: id,
     stockCode: stockCode,
   });
+export const setWeatherLocationDB = (id, localName, x, y) =>
+  axios.post("http://localhost:5000/weather/location", {
+    id: id,
+    localName: localName,
+    x: x,
+    y: y,
+  });

@@ -1,26 +1,42 @@
 import React, { useState } from "react";
 import styles from "./WeatherModal.module.scss";
-import * as api from "../../../api/openAPI";
-import { WeatherRequestParams } from "../../../functions/Times";
+import * as openApi from "../../../api/openAPI";
+import * as setApi from "../../../api/setDataAPI";
+import { weatherRequestParams } from "../../../functions/Times";
+import { useDispatch, useSelector } from "react-redux";
+import { setWeatherData } from "../../../modules/weatherReducer";
 const WeatherModal = (props) => {
   const [searchKeyword, setSearchKeyword] = useState();
   const [Location, setLocation] = useState([]);
-  const [weather, setWeatherData] = useState([]);
+  const [currentWeather, setCurrentWeather] = useState([]);
+  const requestTime = weatherRequestParams();
+  const dispatch = useDispatch();
+  const User = useSelector((state) => state.userReducer.currentUser);
 
   const locationSearch = async (e, locationName) => {
     e.preventDefault();
     try {
-      let location = await api.weatherSearchRequest(locationName);
+      let location = await openApi.weatherSearchRequest(locationName);
       setLocation(location.data);
     } catch (err) {
       console.log(err);
     }
   };
-  const getWeatherData = async (x, y) => {
+  const getWeatherData = async (id, localName, x, y) => {
+    const roundedX = Math.round(x * 1000) / 1000;
+    const roundedY = Math.round(y * 1000) / 1000;
     try {
-      let weatherData = await api.weatherDataRequest(x, y);
-      console.log(weatherData.data.item);
-      setWeatherData(weatherData.data.item);
+      let res = await openApi.weatherDataRequest(roundedX, roundedY);
+      let weatherData = res.data;
+      weatherData.localName = localName;
+      dispatch(setWeatherData(weatherData));
+      let location = await setApi.setWeatherLocationDB(
+        id,
+        localName,
+        roundedX,
+        roundedY
+      );
+      props.modalStateToggle();
     } catch (err) {
       console.log(err);
     }
@@ -29,7 +45,7 @@ const WeatherModal = (props) => {
     <div className={styles.WeatherModal}>
       <ul>
         <li>
-          <h4 onClick={() => WeatherRequestParams()}>위치검색</h4>
+          <h4 onClick={() => weatherRequestParams()}>위치검색</h4>
         </li>
         <li>
           <form
@@ -56,8 +72,13 @@ const WeatherModal = (props) => {
                   return (
                     <li key={index}>
                       <button
-                        onClick={() => {
-                          getWeatherData(current.x, current.y);
+                        onClick={(e) => {
+                          getWeatherData(
+                            User[0].id,
+                            current.roadAddress,
+                            current.x,
+                            current.y
+                          );
                         }}
                       >
                         {current.roadAddress}
