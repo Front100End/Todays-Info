@@ -249,10 +249,53 @@ app.post("/stock/code", async (req, res) => {
       [id, stockCode]
     );
     connection.release();
-    return res.json({ postStockCode: true, status: 200 });
+    return res.json({ postStockCodeSuccess: true, status: 200 });
   } catch (error) {
     connection.release();
-    return res.json({ postStockCode: false, status: 500, error: error });
+    return res.json({ postStockCodeSuccess: false, status: 500, error: error });
+  }
+});
+
+app.delete("/stock/code", async (req, res) => {
+  const { id, stockCode } = req.body;
+  let connection = await pool.getConnection(async (conn) => {
+    if (err) throw err;
+    return conn;
+  });
+  try {
+    let deleteItem = await connection.query(
+      "DELETE FROM stock WHERE id=? and stockcode =?",
+      [id, stockCode]
+    );
+    connection.release();
+    return res.json({
+      deleteStockCodeSuccess: true,
+    });
+  } catch (err) {
+    connection.release();
+    return res.json({
+      deleteStockCodeSuccess: false,
+      status: 500,
+      error: error,
+    });
+  }
+});
+
+app.get("/weather/location", async (req, res) => {
+  const id = req.query.id;
+  let connection = await pool.getConnection(async (conn) => {
+    if (err) throw err;
+    return conn;
+  });
+  try {
+    let [rows] = await connection.query("SELECT * from weather WHERE id = ?", [
+      id,
+    ]);
+    connection.release();
+    return res.send(rows);
+  } catch (err) {
+    connection.release();
+    return res.json({ getWeatherLocation: false, status: 500, error: err });
   }
 });
 
@@ -268,10 +311,35 @@ app.post("/weather/location", async (req, res) => {
       [id, localName, x, y]
     );
     connection.release();
-    return res.json({ postStockCode: true, status: 200 });
+    return res.json({ postWeatherLocation: true, status: 200 });
   } catch (error) {
     connection.release();
-    return res.json({ postStockCode: false, status: 500, error: error });
+    return res.json({ postWeatherLocation: false, status: 500, error: error });
+  }
+});
+
+app.delete("/weather/location", async (req, res) => {
+  const { id, localName } = req.body;
+  let connection = await pool.getConnection(async (conn) => {
+    if (err) throw err;
+    return conn;
+  });
+  try {
+    let deleteItem = await connection.query(
+      "DELETE FROM weather WHERE id=? and localName =?",
+      [id, localName]
+    );
+    connection.release();
+    return res.json({
+      deleteWeatherLocationSuccess: true,
+    });
+  } catch (err) {
+    connection.release();
+    return res.json({
+      deleteWeatherLocationSuccess: false,
+      status: 500,
+      error: error,
+    });
   }
 });
 
@@ -307,12 +375,10 @@ app.post("/api/stocks/search", async (req, res) => {
       filterSearchResult = arrayResult.filter(
         (current) => current.eltscYn === "Y"
       ); //현재 상장중인 종목만을 filter
-      console.log(filterSearchResult);
     } else {
       filterSearchResult = searchResult.data.response.body.items.item.filter(
         (current) => current.eltscYn === "Y"
       ); //현재 상장중인 종목만을 filter
-      console.log(filterSearchResult);
     }
     // console.log(filterSearchResult);
     res.send(filterSearchResult);

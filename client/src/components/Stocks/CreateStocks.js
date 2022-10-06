@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
 import styles from "./CreateStocks.module.scss";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { stockFooterTime } from "../../functions/Times";
+import { deleteStockData } from "../../functions/deleteItems";
 import stockImage from "../../images/ico_stock.png";
 import upIcon from "../../images/up_icon.png";
 import downIcon from "../../images/down_icon.png";
-
 const CreateStocks = (props) => {
   const [loading, setLoading] = useState(true);
   const [stockArray, setStockArray] = useState([]);
   const stockCode = useSelector((state) => state.stockReducer.stockCode);
   const stockData = useSelector((state) => state.stockReducer.stockData);
-
+  const User = useSelector((state) => state.userReducer.currentUser);
+  const dispatch = useDispatch();
   useEffect(() => {
     setLoading(true);
     setStockArray(stockData);
@@ -19,12 +20,7 @@ const CreateStocks = (props) => {
   }, [stockData]);
 
   return (
-    <ul
-      className={styles.CreateStocks}
-      // style={
-      //   stockArray.length !== 0 ? { display: "block" } : { display: "none" }
-      // }
-    >
+    <ul className={styles.CreateStocks}>
       <li>
         <img src={stockImage} alt="" />
         <h2>주식</h2>
@@ -36,6 +32,14 @@ const CreateStocks = (props) => {
               <li key={index} className={styles.stockItem}>
                 <h3>
                   <p>{current[3].stockName}</p>
+                  <button
+                    className={styles.itemDeleteButton}
+                    onClick={() =>
+                      deleteStockData(User[0].id, current[4].code, dispatch)
+                    }
+                  >
+                    X
+                  </button>
                 </h3>
                 <p>
                   <em>{current[0].price}</em>

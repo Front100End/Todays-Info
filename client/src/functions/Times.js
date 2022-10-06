@@ -20,6 +20,18 @@ export const weatherRequestParams = () => {
   }
 };
 
+export const weatherHourTime = (dt) => {
+  let time = new Date(dt * 1000);
+  let hour = time.getHours();
+  let hourArray = [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 0];
+  if (hour > 11) {
+    let changeTime = hourArray[hour - 12];
+    return `오후 ${changeTime}시`;
+  } else {
+    return `오전 0${hour}시`;
+  }
+};
+
 export const stockFooterTime = () => {
   const year = currentTime.getFullYear();
   const month = currentTime.getMonth();

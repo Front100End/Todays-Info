@@ -10,14 +10,13 @@ const useStockInitData = (loadingFunc) => {
   const dispatch = useDispatch();
   const getStockInitData = async (loadingFunc) => {
     try {
-      console.log(User[0].id);
       let StockInitData = await initApi.setStocksInitData(User[0].id);
       StockInitData.data.forEach(async (current) => {
         let crawlingData = await crawlingApi.getStocks(current.stockcode);
         let DataArray = [crawlingData.data];
         dispatch(setStockData(DataArray)); //종목코드 크롤링 결과 dispatch
       });
-      //   loadingFunc(false);
+      loadingFunc(false);
     } catch (err) {
       console.log(err);
     }

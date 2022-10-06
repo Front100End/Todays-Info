@@ -33,6 +33,10 @@ export const StockFetching = async (stockCode) => {
   stockArr.push({
     stockName: stockName,
   });
+  const code = $(".code").text();
+  stockArr.push({
+    code: code,
+  });
 
   return stockArr;
 };
