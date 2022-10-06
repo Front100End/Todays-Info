@@ -5,7 +5,7 @@ import CreateStocks from "./CreateStocks";
 import useStockInitData from "../../hooks/useStockInitData";
 
 const Stocks = (props) => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const loadingToggle = () => {
     setLoading((current) => !current);
   };

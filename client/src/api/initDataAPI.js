@@ -6,3 +6,9 @@ export const setStocksInitData = (id) =>
       id: id,
     },
   });
+export const setWeatherInitData = (id) =>
+  axios.get("http://localhost:5000/weather/location", {
+    params: {
+      id: id,
+    },
+  });

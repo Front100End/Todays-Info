@@ -31,7 +31,87 @@
     box-shadow: var(--shadow-small);
     // background-color: var(--stock-color);
     background-color: #fff;
-
     margin-top: 15px;
+    position: relative;
+    > header {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      > h2 {
+        font-size: var(--medium-font-size);
+      }
+      > h3 {
+        font-size: var(--medium-font-size-mobile);
+        padding: 5px 0;
+      }
+    }
+    .deleteButton {
+      width: 20px;
+      height: 20px;
+      background-color: #bdbdbd;
+      color: #fff;
+      border-radius: 5px;
+      position: absolute;
+      right: 10px;
+      top: 10px;
+    }
+  }
+  .currentWeather {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    > img {
+      border-radius: 8px;
+    }
+    > div {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      > h4 {
+        font-size: var(--large-font-size-mobile);
+      }
+      > p {
+        padding-bottom: 10px;
+        font-size: var(--small-font-size);
+      }
+    }
+  }
+  .hourWeatherWrap {
+    display: flex;
+    align-items: center;
+    overflow-x: scroll;
+    overscroll-behavior: contain;
+    padding: 10px;
+    box-shadow: var(--shadow-smallest);
+    > li {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 0 3px;
+      > img {
+        width: 30px;
+        height: 30px;
+      }
+      > span {
+        font-size: var(--small-font-size);
+        white-space: nowrap;
+        &:last-child {
+          font-size: var(--medium-font-size-mobile);
+        }
+      }
+      > em {
+        font-style: normal;
+        font-size: var(--medium-font-size-mobile);
+      }
+    }
+  }
+  @media screen and (max-width: 1080px) {
+    .hourWeatherWrap {
+      justify-content: center;
+    }
   }
 }

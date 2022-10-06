@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "./CreateWeathers.module.scss";
 import weatherImage from "../../images/ico_weather.png";
-
+import CurrentWeather from "./CurrentWeather";
+import HourlyWeather from "./HourlyWeather";
+import { deleteWeatherData } from "../../functions/deleteItems";
 const CreateWeathers = (props) => {
   const [loading, setLoading] = useState(true);
   const [weatherArray, setWeatherArray] = useState([]);
   const weatherData = useSelector((state) => state.weatherReducer.weatherData);
-
+  const User = useSelector((state) => state.userReducer.currentUser);
+  const dispatch = useDispatch();
   useEffect(() => {
     setLoading(true);
     setWeatherArray(weatherData);
@@ -24,7 +27,26 @@ const CreateWeathers = (props) => {
         : weatherArray.map((item, index) => {
             return (
               <li key={index} className={styles.weatherItem}>
-                <p>{item.current.temp}</p>
+                <header>
+                  <h2>{item.localName}</h2>
+                  <h3>{item.current.weather[0].main}</h3>
+                  <button
+                    className={styles.deleteButton}
+                    onClick={() =>
+                      deleteWeatherData(User[0].id, item.localName, dispatch)
+                    }
+                  >
+                    X
+                  </button>
+                </header>
+                <section>
+                  <CurrentWeather weatherData={item}></CurrentWeather>
+                </section>
+                <footer>
+                  <HourlyWeather
+                    hourlyWeatherData={item.hourly}
+                  ></HourlyWeather>
+                </footer>
               </li>
             );
           })}
