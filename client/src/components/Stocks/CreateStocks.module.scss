@@ -10,19 +10,35 @@
 
   > li:first-child {
     display: flex;
-    align-items: center;
-    justify-self: center;
-    box-shadow: none;
-    padding: 0;
-    margin: 0;
-    background-color: var(--stock-color);
-    > img {
-      width: 30px;
-      height: 30px;
+    justify-content: space-between;
+    padding: 0 10px;
+
+    > div {
+      display: flex;
+      align-items: center;
+      box-shadow: none;
+      padding: 0;
+      margin: 0;
+      background-color: var(--stock-color);
+      > img {
+        width: 30px;
+        height: 30px;
+      }
+      > h2 {
+        margin-left: 5px;
+        font-size: var(--medium-font-size);
+      }
     }
-    > h2 {
-      margin-left: 5px;
-      font-size: var(--medium-font-size);
+    > button {
+      img {
+        vertical-align: middle;
+        width: 20px;
+        height: 20px;
+        &:hover {
+          transform: rotate(180deg);
+          transition: 0.7s;
+        }
+      }
     }
   }
   .stockItem {
@@ -31,7 +47,7 @@
     padding: 10px;
     box-shadow: var(--shadow-small);
     background-color: #fff;
-    margin-top: 15px;
+    margin: 15px 10px 0 10px;
     > h3 {
       display: flex;
       align-items: center;

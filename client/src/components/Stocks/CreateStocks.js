@@ -6,6 +6,8 @@ import { deleteStockData } from "../../functions/deleteItems";
 import stockImage from "../../images/ico_stock.png";
 import upIcon from "../../images/up_icon.png";
 import downIcon from "../../images/down_icon.png";
+import refreshIcon from "../../images/refresh_icon.png";
+
 const CreateStocks = (props) => {
   const [loading, setLoading] = useState(true);
   const [stockArray, setStockArray] = useState([]);
@@ -22,8 +24,13 @@ const CreateStocks = (props) => {
   return (
     <ul className={styles.CreateStocks}>
       <li>
-        <img src={stockImage} alt="" />
-        <h2>주식</h2>
+        <div>
+          <img src={stockImage} alt="" />
+          <h2>주식</h2>
+        </div>
+        <button>
+          <img src={refreshIcon} alt="arrows-rotate-solid img problem" />
+        </button>
       </li>
       {loading === true
         ? ""

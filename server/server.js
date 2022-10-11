@@ -11,6 +11,7 @@ import axios from "axios";
 import cookie from "cookie";
 import cookieParser from "cookie-parser";
 import jwt from "jsonwebtoken";
+import xmlConverter from "xml-js";
 import { authFindUser } from "./Middleware/auth.js";
 
 const app = express();
@@ -281,6 +282,41 @@ app.delete("/stock/code", async (req, res) => {
   }
 });
 
+app.get("/bus/route", async (req, res) => {
+  const id = req.query.id;
+  let connection = await pool.getConnection(async (conn) => {
+    if (err) throw err;
+    return conn;
+  });
+  try {
+    let [rows] = await connection.query("SELECT * from bus WHERE id = ?", [id]);
+    connection.release();
+    return res.send(rows);
+  } catch (err) {
+    connection.release();
+    return res.json({ getWeatherLocation: false, status: 500, error: err });
+  }
+});
+
+app.post("/bus/route", async (req, res) => {
+  const { id, stationId, routeId, staOrder, routeType, routeName } = req.body;
+  let connection = await pool.getConnection(async (conn) => {
+    if (err) throw err;
+    return conn;
+  });
+  try {
+    let [row] = await connection.query(
+      "INSERT INTO bus(id,stationId, routeId, staOrder,routeType,routeName) VALUES(?,?,?,?,?,?)",
+      [id, stationId, routeId, staOrder, routeType, routeName]
+    );
+    connection.release();
+    return res.json({ postbusRoute: true, status: 200 });
+  } catch (err) {
+    connection.release();
+    return res.json({ postbusRoute: false, status: 500, error: err });
+  }
+});
+
 app.get("/weather/location", async (req, res) => {
   const id = req.query.id;
   let connection = await pool.getConnection(async (conn) => {
@@ -387,22 +423,95 @@ app.post("/api/stocks/search", async (req, res) => {
   }
 });
 
+app.get("/api/bus/search/station", async (req, res) => {
+  const searchKeyword = req.query.searchKeyword;
+  const stationSearchURI =
+    "http://apis.data.go.kr/6410000/busstationservice/getBusStationList";
+  try {
+    axios
+      .get(encodeURI(stationSearchURI), {
+        params: {
+          serviceKey: process.env.REACT_APP_BUS_STATION_SEARCH_API_KEY,
+          keyword: searchKeyword,
+        },
+      })
+      .then((response) => {
+        res.send(
+          xmlConverter.xml2json(response.data, { compact: true, spaces: 4 })
+        );
+      });
+  } catch (err) {
+    res.json({ stationSearchConnect: false, err: err });
+  }
+});
+app.get("/api/bus/search/route", async (req, res) => {
+  const stationId = req.query.stationId;
+  const stationSearchURI =
+    "http://apis.data.go.kr/6410000/busstationservice/getBusStationViaRouteList";
+  try {
+    axios
+      .get(encodeURI(stationSearchURI), {
+        params: {
+          serviceKey: process.env.REACT_APP_BUS_STATION_SEARCH_API_KEY,
+          stationId: stationId,
+        },
+      })
+      .then((response) => {
+        res.send(
+          xmlConverter.xml2json(response.data, { compact: true, spaces: 4 })
+        );
+      });
+  } catch (err) {
+    res.json({ stationSearchConnect: false, err: err });
+  }
+});
+
+app.get("/api/bus", async (req, res) => {
+  const stationId = req.query.stationId;
+  const routeId = req.query.routeId;
+  const staOrder = req.query.staOrder;
+  const stationSearchURI =
+    "http://apis.data.go.kr/6410000/busarrivalservice/getBusArrivalItem";
+  try {
+    axios
+      .get(encodeURI(stationSearchURI), {
+        params: {
+          serviceKey: process.env.REACT_APP_BUS_STATION_SEARCH_API_KEY,
+          stationId: stationId,
+          routeId: routeId,
+          staOrder: staOrder,
+        },
+      })
+      .then((response) => {
+        res.send(
+          xmlConverter.xml2json(response.data, { compact: true, spaces: 4 })
+        );
+      });
+  } catch (err) {
+    res.json({ routeSearchConnect: false, err: err });
+  }
+});
+
 app.get("/api/weather/search", (req, res) => {
   const value = req.query.searchKeyword;
-  axios
-    .get(`https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode`, {
-      params: {
-        query: value,
-        display: 5,
-      },
-      headers: {
-        "X-NCP-APIGW-API-KEY-ID": `${process.env.REACT_APP_X_NCP_APIGW_API_KEY_ID}`,
-        "X-NCP-APIGW-API-KEY": `${process.env.REACT_APP_X_NCP_APIGW_API_KEY}`,
-      },
-    })
-    .then((response) => {
-      res.send(response.data.addresses);
-    });
+  try {
+    axios
+      .get(`https://naveropenapi.apigw.ntruss.com/map-geocode/v2/geocode`, {
+        params: {
+          query: value,
+          display: 5,
+        },
+        headers: {
+          "X-NCP-APIGW-API-KEY-ID": `${process.env.REACT_APP_X_NCP_APIGW_API_KEY_ID}`,
+          "X-NCP-APIGW-API-KEY": `${process.env.REACT_APP_X_NCP_APIGW_API_KEY}`,
+        },
+      })
+      .then((response) => {
+        res.send(response.data.addresses);
+      });
+  } catch (err) {
+    res.json({ weatherSearchSuccess: false, err: err });
+  }
 });
 
 app.post("/api/weather", (req, res) => {

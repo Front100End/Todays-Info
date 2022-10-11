@@ -5,6 +5,8 @@ import weatherImage from "../../images/ico_weather.png";
 import CurrentWeather from "./CurrentWeather";
 import HourlyWeather from "./HourlyWeather";
 import { deleteWeatherData } from "../../functions/deleteItems";
+import refreshIcon from "../../images/refresh_icon.png";
+
 const CreateWeathers = (props) => {
   const [loading, setLoading] = useState(true);
   const [weatherArray, setWeatherArray] = useState([]);
@@ -19,9 +21,15 @@ const CreateWeathers = (props) => {
   return (
     <ul className={styles.CreateWeathers}>
       <li>
-        <img src={weatherImage} alt="weatherIconImage error" />
-        <h2>날씨</h2>
+        <div>
+          <img src={weatherImage} alt="weatherIconImage error" />
+          <h2>날씨</h2>
+        </div>
+        <button>
+          <img src={refreshIcon} alt="arrows-rotate-solid img problem" />
+        </button>
       </li>
+
       {loading === true
         ? ""
         : weatherArray.map((item, index) => {

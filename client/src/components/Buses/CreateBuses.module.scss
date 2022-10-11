@@ -1,27 +1,113 @@
 .CreateBuses {
   width: 95%;
   background-color: var(--bus-color);
-
   position: relative;
   border-radius: 10px;
   box-shadow: var(--shadow-small);
   margin: 10px auto 10px auto;
   padding: 20px;
+
   > li:first-child {
     display: flex;
-    align-items: center;
-    justify-self: center;
-    box-shadow: none;
-    padding: 0;
-    margin: 0;
-    background-color: var(--bus-color);
-    > img {
-      width: 30px;
-      height: 30px;
+    justify-content: space-between;
+    padding: 0 10px;
+    > div {
+      display: flex;
+      align-items: center;
+      box-shadow: none;
+      padding: 0;
+      margin: 0;
+      background-color: var(--bus-color);
+      > img {
+        width: 30px;
+        height: 30px;
+      }
+      > h2 {
+        margin-left: 5px;
+        font-size: var(--medium-font-size);
+      }
     }
-    > h2 {
-      margin-left: 5px;
-      font-size: var(--medium-font-size);
+    > button {
+      img {
+        vertical-align: middle;
+        width: 20px;
+        height: 20px;
+        &:hover {
+          transform: rotate(180deg);
+          transition: 0.7s;
+        }
+      }
+    }
+  }
+  > li:last-child {
+    > ul {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 15px;
+      > li {
+        max-width: 170px;
+        min-width: 160px;
+        margin-top: 15px;
+        border-radius: 5px;
+        background-color: #fff;
+        box-shadow: var(--shadow-small);
+        padding: 12px;
+        margin: 10px;
+        > div {
+          &:nth-child(1) {
+            //버스이름,번호
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            > div {
+              margin-left: 5px;
+              > em {
+                font-size: var(--large-font-size-mobile);
+                font-style: normal;
+                font-weight: var(--medium-font-weight);
+              }
+              > p {
+                font-size: var(--medium-font-size-mobile);
+                color: var(--subfont-color);
+              }
+            }
+          }
+          &:nth-child(2) {
+            //버스 시간
+            > div {
+              > p {
+                font-size: normal;
+                margin-top: 5px;
+
+                > em {
+                  font-style: normal;
+                  font-size: var(--medium-font-size-mobile);
+                }
+                > span {
+                  font-size: var(--small-font-size);
+                  color: var(--subfont-color);
+                  margin-left: 2px;
+                }
+              }
+              > span {
+                font-size: var(--small-font-size);
+              }
+            }
+            > i {
+              text-align: center;
+            }
+          }
+        }
+      }
+      @media screen and (max-width: 768px) {
+        > li {
+          max-width: none;
+          width: 250px;
+        }
+      }
     }
   }
 }
