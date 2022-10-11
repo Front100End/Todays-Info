@@ -1,0 +1,115 @@
+.BusModal {
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 30px;
+  padding: 20px;
+  background-color: var(--bus-color);
+  box-shadow: var(--shadow-small);
+
+  .stationSearchArea {
+    > li {
+      > h4 {
+        font-size: var(--small-font-size);
+      }
+      > form {
+        padding-top: 5px;
+        display: flex;
+        justify-content: ceneter;
+        align-items: center;
+        > input {
+          width: 80%;
+          height: 30px;
+          outline: none;
+        }
+        > button {
+          width: 50px;
+          height: 30px;
+          background-color: var(--todays-main-color);
+          border-radius: 0 5px 5px 0;
+        }
+      }
+    }
+  }
+
+  .stationList {
+    max-height: 200px;
+    overflow-y: scroll;
+    background-color: #fff;
+    border: 1px solid black;
+    margin-top: 5px;
+    > li {
+      display: flex;
+      border-bottom: 1px solid #7b7b7b;
+      &:last-child {
+        border-bottom: none;
+      }
+      > button {
+        width: 100%;
+        font-size: var(--medium-font-size-mobile);
+        padding: 5px;
+        &:active {
+          color: red;
+        }
+        > span {
+          font-size: var(--small-font-size-mobile);
+          color: #7b7b7b;
+          margin-left: 5px;
+        }
+      }
+    }
+  }
+
+  .routeSearchArea {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    > li {
+      width: 100%;
+      > h4 {
+        font-size: var(--small-font-size);
+        margin-top: 10px;
+      }
+    }
+    .routeList {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      max-height: 200px;
+      overflow-y: scroll;
+      > li {
+        text-align: center;
+        background-color: #fff;
+        border: 3px solid var(--todays-main-color);
+        border-radius: 5px;
+        margin: 10px 10px 0 0;
+        > button {
+          width: 100px;
+          padding: 10px;
+        }
+      }
+    }
+  }
+  > p {
+    font-size: var(--small-font-size);
+    margin-top: 5px;
+  }
+  .saveButton {
+    height: 40px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .BusModal {
+    .routeSearchArea {
+      .routeList {
+        .routeButton {
+          width: 70px;
+        }
+      }
+    }
+  }
+}

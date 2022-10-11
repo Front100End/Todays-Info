@@ -9,19 +9,35 @@
   padding: 20px;
   > li:first-child {
     display: flex;
-    align-items: center;
-    justify-self: center;
-    box-shadow: none;
-    padding: 0;
-    margin: 0;
-    background-color: var(--weather-color);
-    > img {
-      width: 30px;
-      height: 30px;
+    justify-content: space-between;
+    padding: 0 10px;
+
+    > div {
+      display: flex;
+      align-items: center;
+      box-shadow: none;
+      padding: 0;
+      margin: 0;
+      background-color: var(--weather-color);
+      > img {
+        width: 30px;
+        height: 30px;
+      }
+      > h2 {
+        margin-left: 5px;
+        font-size: var(--medium-font-size);
+      }
     }
-    > h2 {
-      margin-left: 5px;
-      font-size: var(--medium-font-size);
+    > button {
+      img {
+        vertical-align: middle;
+        width: 20px;
+        height: 20px;
+        &:hover {
+          transform: rotate(180deg);
+          transition: 0.7s;
+        }
+      }
     }
   }
   .weatherItem {
@@ -83,6 +99,7 @@
     display: flex;
     align-items: center;
     overflow-x: scroll;
+    z-index: 99;
     overscroll-behavior: contain;
     padding: 10px;
     box-shadow: var(--shadow-smallest);

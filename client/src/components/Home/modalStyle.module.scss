@@ -17,13 +17,11 @@
   left: 50%;
   transform: translateX(-50%);
   top: 50px;
-  min-height: 70vh;
   background-color: white;
   z-index: 999;
   border: 1px solid black;
   border-radius: 15px;
   @media screen and (max-width: 768px) {
     width: 90%;
-    min-height: 50vh;
   }
 }

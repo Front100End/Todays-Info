@@ -12,3 +12,10 @@ export const setWeatherInitData = (id) =>
       id: id,
     },
   });
+
+export const setBusInitData = (id) =>
+  axios.get("http://localhost:5000/bus/route", {
+    params: {
+      id: id,
+    },
+  });

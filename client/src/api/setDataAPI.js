@@ -12,3 +12,19 @@ export const setWeatherLocationDB = (id, localName, x, y) =>
     x: x,
     y: y,
   });
+export const setbusRouteDB = (
+  id,
+  stationId,
+  routeId,
+  staOrder,
+  routeType,
+  routeName
+) =>
+  axios.post("http://localhost:5000/bus/route", {
+    id: id,
+    stationId: stationId,
+    routeId: routeId,
+    staOrder: staOrder,
+    routeType: routeType,
+    routeName: routeName,
+  });
