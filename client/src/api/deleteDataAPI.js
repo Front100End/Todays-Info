@@ -14,3 +14,11 @@ export const deleteWeatherDB = (id, localName) =>
       localName: localName,
     },
   });
+
+export const deleteBusDB = (id, stationId) =>
+  axios.delete("http://localhost:5000/bus/route", {
+    data: {
+      id: id,
+      stationId: stationId,
+    },
+  });

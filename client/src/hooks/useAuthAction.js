@@ -10,13 +10,13 @@ const useAuthAction = async (loadingFunc) => {
   const navigate = useNavigate();
   const AuthCheck = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/users/auth", {
+      const authRes = await axios.get("http://localhost:5000/api/users/auth", {
         withCredentials: true,
       });
-      if (res.data.isAuth === true) {
+      if (authRes.data.isAuth === true) {
         //인증 성공
         setAccessState(true);
-        dispatch(setUser(res.data));
+        dispatch(setUser(authRes.data));
         loadingFunc(true);
         navigate(`/`);
       } else {

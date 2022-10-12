@@ -99,8 +99,8 @@
     display: flex;
     align-items: center;
     overflow-x: scroll;
-    z-index: 99;
     overscroll-behavior: contain;
+    z-index: 99;
     padding: 10px;
     box-shadow: var(--shadow-smallest);
     > li {
@@ -125,6 +125,9 @@
         font-size: var(--medium-font-size-mobile);
       }
     }
+  }
+  > footer {
+    z-index: 99;
   }
   @media screen and (max-width: 1080px) {
     .hourWeatherWrap {

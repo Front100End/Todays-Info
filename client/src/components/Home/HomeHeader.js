@@ -44,16 +44,20 @@ const HomeHeader = (props) => {
   };
 
   return (
-    <div>
+    <div className={styles.HomeHeaderWrap}>
       {modalState ? (
-        <div className={modalStyles.modalOverlay}>
+        <React.Fragment>
+          <div
+            className={modalStyles.modalOverlay}
+            onClick={() => modalStateToggle()}
+          ></div>
           <section className={modalStyles.modal}>
             <SetModal
               type={modalType}
               modalStateToggle={modalStateToggle}
             ></SetModal>
           </section>
-        </div>
+        </React.Fragment>
       ) : (
         ""
       )}

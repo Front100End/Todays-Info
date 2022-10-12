@@ -4,13 +4,14 @@ import { setUser } from "../modules/userReducer";
 import { useSelector, useDispatch } from "react-redux";
 import * as initApi from "../api/initDataAPI";
 import * as openApi from "../api/openAPI";
-import { setWeatherData } from "../modules/weatherReducer";
+import { setWeatherData, resetWeatherData } from "../modules/weatherReducer";
 const useWeatherInitData = (loadingFunc) => {
   const User = useSelector((state) => state.userReducer.currentUser);
   const dispatch = useDispatch();
   const getWeatherInitData = async (loadingFunc) => {
     try {
       let weatherInitData = await initApi.setWeatherInitData(User[0].id);
+      dispatch(resetWeatherData());
       weatherInitData.data.forEach(async (current) => {
         let weatherRes = await openApi.weatherDataRequest(current.x, current.y);
         weatherRes.data.localName = current.localName;

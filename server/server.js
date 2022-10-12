@@ -12,7 +12,6 @@ import cookie from "cookie";
 import cookieParser from "cookie-parser";
 import jwt from "jsonwebtoken";
 import xmlConverter from "xml-js";
-import { authFindUser } from "./Middleware/auth.js";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -59,9 +58,9 @@ app.post("/api/users/login", async (req, res) => {
     const user = await connection.query(`SELECT * FROM user WHERE userId = ?`, [
       id,
     ]);
-    // console.log(user[0][0]);
     if (user[0][0] == undefined) {
       //일치하는 아이디 없을경우
+      connection.release();
       return res.json({
         loginSuccess: false,
         message: "※ 존재하지 않은 아이디입니다.",
@@ -75,7 +74,6 @@ app.post("/api/users/login", async (req, res) => {
 
       if (id === user[0][0].userId && passwordCheck === true) {
         let id = user[0][0].id;
-
         if (!user[0][0].token) {
           let token = createUserToken().access(id);
           let insertToken = await connection.query(
@@ -97,14 +95,12 @@ app.post("/api/users/login", async (req, res) => {
           message: "success",
         });
       } else {
-        console.log("password틀림");
         res.json({
           loginSuccess: false,
           message: "※ 비밀번호가 틀렸습니다.",
         });
       }
     } else {
-      console.log("※ 가입되지 않은 회원입니다.");
       res.json({
         loginSuccess: false,
         message: "※ 가입되지 않은 회원입니다.",
@@ -128,18 +124,19 @@ app.post("/api/users/logout", async (req, res) => {
       [id]
     );
     res.clearCookie("accessCookie");
+    connection.release();
     return res.json({
       logoutSuccess: true,
       message: "로그아웃이 정상적으로 실행됐습니다..",
     });
   } catch (err) {
+    connection.release();
     return res.json({
       logoutSuccess: false,
       message: "로그아웃에 실패했습니다.",
       error: err,
     });
   }
-  connection.release();
 });
 
 //---------회원가입---------
@@ -167,7 +164,7 @@ app.post("/api/users/join", async (req, res) => {
     }
   } else {
     connection.release();
-    return res.status(400).json({ message: "이미 가입된 아이디입니다." });
+    return res.json({ message: "이미 가입된 아이디 입니다.", status: 400 });
   }
   connection.release();
 });
@@ -184,11 +181,11 @@ app.get("/api/users/auth", async (req, res) => {
   try {
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, function (err, decoded) {
       //유저 아이디 확인.
-      const findUser = async (decoded) => {
+      const findUser = async (decodedId) => {
         let user;
         const jwtCheck = await connection.query(
           `SELECT * FROM user WHERE id = ? and token = ?`,
-          [decoded, token]
+          [decodedId, token]
         );
         if (!jwtCheck) return res.json({ isAuth: false, error: true });
 
@@ -314,6 +311,31 @@ app.post("/bus/route", async (req, res) => {
   } catch (err) {
     connection.release();
     return res.json({ postbusRoute: false, status: 500, error: err });
+  }
+});
+
+app.delete("/bus/route", async (req, res) => {
+  const { id, stationId } = req.body;
+  let connection = await pool.getConnection(async (conn) => {
+    if (err) throw err;
+    return conn;
+  });
+  try {
+    let deleteItem = await connection.query(
+      "DELETE FROM bus WHERE id=? and stationId =?",
+      [id, stationId]
+    );
+    connection.release();
+    return res.json({
+      deleteBusRouteSuccess: true,
+    });
+  } catch (err) {
+    connection.release();
+    return res.json({
+      deleteBusRouteSuccess: false,
+      status: 500,
+      error: error,
+    });
   }
 });
 

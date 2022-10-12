@@ -6,7 +6,7 @@ export const HomeHeaderTime = () => {
   const date = currentTime.getDate();
   const day = currentTime.getDay();
 
-  return `${month + 1}월 ${date}일 ${dayArray[day - 1]}요일 소식입니다`;
+  return `${month + 1}월 ${date}일 ${dayArray[day - 1]}요일 소식입니다.`;
 };
 
 export const weatherRequestParams = () => {

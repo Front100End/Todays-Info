@@ -16,9 +16,9 @@ const SetModal = ({ type, modalStateToggle }) => {
     stock: <StockModal modalStateToggle={modalStateToggle}></StockModal>,
   };
   const modalIcon = {
-    weather: [weatherIconImage, "날씨", "#F6FFF8"],
-    bus: [busIconImage, "버스", "#FFFEF6"],
-    stock: [stockIconImage, "주식", "#FFF6F6"],
+    weather: [weatherIconImage, "날씨"],
+    bus: [busIconImage, "버스"],
+    stock: [stockIconImage, "주식"],
   };
 
   const modalSwitch = (switchType) => {
