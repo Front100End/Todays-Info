@@ -1,6 +1,6 @@
 const BusData = "busData";
 const ResetBusData = "resetBusData";
-const DeleteBusData = "deleteWeatherData";
+const DeleteBusData = "deletebusData";
 export const setBusData = (data) => ({
   type: BusData,
   data: data,
@@ -32,6 +32,9 @@ export default function busReducer(state = initState, action) {
     case DeleteBusData: {
       return {
         ...state,
+        busData: state.busData.filter(
+          (current) => current.stationId._text !== action.data
+        ),
       };
     }
     default:

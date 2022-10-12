@@ -1,7 +1,7 @@
 const StockData = "StockData";
 const StockCode = "StockCode";
 const DeleteStockData = "DeleteStockData";
-
+const ResetStockData = "resetStockData";
 export const setStockData = (data) => ({
   type: StockData,
   data: data,
@@ -12,6 +12,10 @@ export const setStockCode = (data) => ({
 });
 export const deleteStock = (data) => ({
   type: DeleteStockData,
+  data: data,
+});
+export const resetStockData = (data) => ({
+  type: ResetStockData,
   data: data,
 });
 
@@ -39,6 +43,11 @@ export default function weatherReducer(state = initState, action) {
         stockData: state.stockData.filter(
           (current) => current[4].code !== action.data
         ),
+      };
+    }
+    case ResetStockData: {
+      return {
+        stockData: [],
       };
     }
 

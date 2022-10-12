@@ -29,7 +29,8 @@ const LoginSection = (props) => {
         value={userPassword}
         onChange={(e) => setUserPassword(e.target.value)}
         onKeyDown={(e) => {
-          if (e.key === "Enter") loginAction(userId, userPassword, navigate);
+          if (e.key === "Enter")
+            loginAction(userId, userPassword, navigate, alertSetting);
         }}
       ></LongBarInput>
       <p className={styles.loginGuide}>{userAlert}</p>

@@ -12,18 +12,22 @@ const JoinSection = (props) => {
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
   const [CheckState, setCheckState] = useState(false);
+  const [guideMessage, setGuideMessage] = useState("");
 
   const navigate = useNavigate();
 
   const checkPassword = () => {
-    if (password == "") {
+    if (password === "") {
       setCheckState(false);
     }
-    if (passwordCheck == password) {
+    if (passwordCheck === password) {
       setCheckState(true);
     } else {
       setCheckState(false);
     }
+  };
+  const guideMessageChange = (message) => {
+    setGuideMessage(message);
   };
 
   useEffect(() => {
@@ -31,13 +35,37 @@ const JoinSection = (props) => {
   }, [passwordCheck]);
 
   return (
-    <section className={styles.JoinSection}>
+    <section
+      className={styles.JoinSection}
+      onKeyDown={(e) => {
+        if (e.key === "Enter") {
+          if (
+            CheckState === true &&
+            id !== "" &&
+            email !== "" &&
+            nickname !== ""
+          ) {
+            joinAction(
+              id,
+              nickname,
+              email,
+              password,
+              navigate,
+              guideMessageChange
+            );
+          } else {
+            alert("비어있는 칸이 있는지 확인해주세요.");
+          }
+        }
+      }}
+    >
       <p>아이디</p>
       <LongBarInput
         placeholder="아이디 입력"
         style={{ marginTop: "8px" }}
         onChange={(e) => setId(e.target.value)}
       ></LongBarInput>
+      {guideMessage ? <span>※ {guideMessage}</span> : ""}
       <p>별명</p>
       <LongBarInput
         placeholder="닉네임 입력"
@@ -79,7 +107,14 @@ const JoinSection = (props) => {
             email !== "" &&
             nickname !== ""
           ) {
-            joinAction(id, nickname, email, password, navigate);
+            joinAction(
+              id,
+              nickname,
+              email,
+              password,
+              navigate,
+              guideMessageChange
+            );
           } else {
             alert("비어있는 칸이 있는지 확인해주세요.");
           }

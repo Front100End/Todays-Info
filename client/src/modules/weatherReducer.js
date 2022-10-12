@@ -1,11 +1,17 @@
 const WeatherData = "weatherData";
 const DeleteWeatherData = "deleteWeatherData";
+const ResetWeatherData = "resetWeatherData";
+
 export const setWeatherData = (data) => ({
   type: WeatherData,
   data: data,
 });
 export const deleteWeather = (data) => ({
   type: DeleteWeatherData,
+  data: data,
+});
+export const resetWeatherData = (data) => ({
+  type: ResetWeatherData,
   data: data,
 });
 const initState = {
@@ -25,6 +31,11 @@ export default function weatherReducer(state = initState, action) {
         weatherData: state.weatherData.filter(
           (current) => current.localName !== action.data
         ),
+      };
+    }
+    case ResetWeatherData: {
+      return {
+        weatherData: [],
       };
     }
     default:

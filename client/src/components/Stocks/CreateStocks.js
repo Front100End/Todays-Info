@@ -7,7 +7,10 @@ import stockImage from "../../images/ico_stock.png";
 import upIcon from "../../images/up_icon.png";
 import downIcon from "../../images/down_icon.png";
 import refreshIcon from "../../images/refresh_icon.png";
-
+import * as initApi from "../../api/initDataAPI";
+import * as crawlingApi from "../../api/crawlingAPI";
+import useStockInitData from "../../hooks/useStockInitData";
+import { resetStockData, setStockData } from "../../modules/stockReducer";
 const CreateStocks = (props) => {
   const [loading, setLoading] = useState(true);
   const [stockArray, setStockArray] = useState([]);
@@ -15,6 +18,22 @@ const CreateStocks = (props) => {
   const stockData = useSelector((state) => state.stockReducer.stockData);
   const User = useSelector((state) => state.userReducer.currentUser);
   const dispatch = useDispatch();
+  const refreshStockItem = async () => {
+    setLoading(true);
+    try {
+      let StockInitData = await initApi.setStocksInitData(User[0].id);
+      dispatch(resetStockData());
+      StockInitData.data.forEach(async (current) => {
+        let crawlingData = await crawlingApi.getStocks(current.stockcode);
+        let DataArray = [crawlingData.data];
+        dispatch(setStockData(DataArray)); //종목코드 크롤링 결과 dispatch
+      });
+      setLoading(false);
+    } catch (err) {
+      console.log(`err : front ${err}`);
+    }
+  };
+
   useEffect(() => {
     setLoading(true);
     setStockArray(stockData);
@@ -28,7 +47,7 @@ const CreateStocks = (props) => {
           <img src={stockImage} alt="" />
           <h2>주식</h2>
         </div>
-        <button>
+        <button onClick={() => refreshStockItem()}>
           <img src={refreshIcon} alt="arrows-rotate-solid img problem" />
         </button>
       </li>

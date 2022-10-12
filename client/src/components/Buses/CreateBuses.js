@@ -7,6 +7,7 @@ import refreshIcon from "../../images/refresh_icon.png";
 import * as initApi from "../../api/initDataAPI";
 import * as openApi from "../../api/openAPI";
 import { setBusData, resetBusData } from "../../modules/busReducer";
+import { deleteBusData } from "../../functions/deleteItems";
 
 const CreateBuses = (props) => {
   const [loading, setLoading] = useState(true);
@@ -14,29 +15,34 @@ const CreateBuses = (props) => {
   const busData = useSelector((state) => state.busReducer.busData);
   const User = useSelector((state) => state.userReducer.currentUser);
   const dispatch = useDispatch();
+
   const refreshBusItem = async () => {
     setLoading(true);
-    let busInitData = await initApi.setBusInitData(User[0].id);
-    dispatch(resetBusData([]));
-    busInitData.data.forEach(async (current) => {
-      console.log(busInitData.data);
-      let busRes = await openApi.busDataRequest(
-        current.stationId,
-        current.routeId,
-        current.staOrder
-      );
-      if (
-        busRes.data.response.msgHeader.resultMessage._text ===
-        "정상적으로 처리되었습니다."
-      ) {
-        busRes.data.response.msgBody.busArrivalItem.routeType =
-          current.routeType;
-        busRes.data.response.msgBody.busArrivalItem.routeName =
-          current.routeName;
-        dispatch(setBusData(busRes.data.response.msgBody.busArrivalItem));
-      }
-    });
-    setLoading(false);
+    try {
+      let busInitData = await initApi.setBusInitData(User[0].id);
+      dispatch(resetBusData([]));
+      busInitData.data.forEach(async (current) => {
+        console.log(busInitData.data);
+        let busRes = await openApi.busDataRequest(
+          current.stationId,
+          current.routeId,
+          current.staOrder
+        );
+        if (
+          busRes.data.response.msgHeader.resultMessage._text ===
+          "정상적으로 처리되었습니다."
+        ) {
+          busRes.data.response.msgBody.busArrivalItem.routeType =
+            current.routeType; // type data 추가
+          busRes.data.response.msgBody.busArrivalItem.routeName =
+            current.routeName; // routeName 추가
+          dispatch(setBusData(busRes.data.response.msgBody.busArrivalItem));
+        }
+      });
+      setLoading(false);
+    } catch (err) {
+      console.log(`err : front ${err}`);
+    }
   };
 
   useEffect(() => {
@@ -77,10 +83,10 @@ const CreateBuses = (props) => {
                       </div>
                     </div>
                     <div className={styles.busArrTimeArea}>
-                      {current.predictTime1.length !== 0 ? (
+                      {current.predictTime1._text.length !== 0 ? (
                         <div>
                           <p>
-                            <em>{current.predictTime1._text}분전</em>
+                            <em>{current.predictTime1._text}분후</em>
                             <span>{current.locationNo1._text}번째전</span>
                             {current.remainSeatCnt1._text !== "-1" ? (
                               <span>{current.remainSeatCnt1._text}좌석</span>
@@ -88,9 +94,9 @@ const CreateBuses = (props) => {
                               ""
                             )}
                           </p>
-                          {current.predictTime2.length === 0 ? (
+                          {current.predictTime2._text.length !== 0 ? (
                             <p>
-                              <em>{current.predictTime2._text}분전</em>
+                              <em>{current.predictTime2._text}분후</em>
                               <span>{current.locationNo2._text}번째전</span>
                               {current.remainSeatCnt2._text !== "-1" ? (
                                 <span>{current.remainSeatCnt2._text}좌석</span>
@@ -99,13 +105,25 @@ const CreateBuses = (props) => {
                               )}
                             </p>
                           ) : (
-                            <span>운행준비중...</span>
+                            <span>도착정보없음...</span>
                           )}
                         </div>
                       ) : (
                         <i>현재 운행중인 버스가 없습니다.</i>
                       )}
                     </div>
+                    <button
+                      className={styles.deleteButton}
+                      onClick={() => {
+                        deleteBusData(
+                          User[0].id,
+                          current.stationId._text,
+                          dispatch
+                        );
+                      }}
+                    >
+                      X
+                    </button>
                   </li>
                 );
               })}
