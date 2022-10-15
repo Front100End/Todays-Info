@@ -3,7 +3,7 @@ import { setUser } from "../modules/userReducer";
 
 export const authRequest = async (accessCheck, dispatch) => {
   try {
-    const res = await axios.get("http://localhost:5000/api/users/auth", {
+    const res = await axios.get("http://3.35.237.101/api/users/auth", {
       withCredentials: true,
     });
     if (res.data.isAuth === true) {

@@ -4,7 +4,7 @@ import axios from "axios";
 
 export const loginRequest = async (id, password) =>
   axios.post(
-    "http://localhost:5000/api/users/login",
+    "http://3.35.237.101/api/users/login",
     {
       id: id,
       password: password,
@@ -14,7 +14,7 @@ export const loginRequest = async (id, password) =>
 
 export const logoutRequest = async (id) =>
   axios.post(
-    "http://localhost:5000/api/users/logout",
+    "http://3.35.237.101/api/users/logout",
     {
       id: id,
     },
@@ -23,7 +23,7 @@ export const logoutRequest = async (id) =>
 
 export const joinRequest = async (id, nickname, email, password) =>
   axios.post(
-    "http://localhost:5000/api/users/join",
+    "http://3.35.237.101/api/users/join",
     {
       id: id,
       nickname: nickname,
