@@ -197,7 +197,7 @@ app.get("/api/users/auth", async (req, res) => {
 
 //---------stock---------
 
-app.get("/stock/code", async (req, res) => {
+app.get("/api/db/stock/code", async (req, res) => {
   const id = req.query.id;
   let connection = await pool.getConnection(async (conn) => {
     if (err) throw err;
@@ -215,7 +215,7 @@ app.get("/stock/code", async (req, res) => {
   }
 });
 
-app.post("/stock/code", async (req, res) => {
+app.post("/api/db/stock/code", async (req, res) => {
   const { id, stockCode } = req.body;
   let connection = await pool.getConnection(async (conn) => {
     if (err) throw err;
@@ -234,7 +234,7 @@ app.post("/stock/code", async (req, res) => {
   }
 });
 
-app.delete("/stock/code", async (req, res) => {
+app.delete("/api/db/stock/code", async (req, res) => {
   const { id, stockCode } = req.body;
   let connection = await pool.getConnection(async (conn) => {
     if (err) throw err;
@@ -259,7 +259,7 @@ app.delete("/stock/code", async (req, res) => {
   }
 });
 
-app.get("/bus/route", async (req, res) => {
+app.get("/api/db/bus/route", async (req, res) => {
   const id = req.query.id;
   let connection = await pool.getConnection(async (conn) => {
     if (err) throw err;
@@ -275,7 +275,7 @@ app.get("/bus/route", async (req, res) => {
   }
 });
 
-app.post("/bus/route", async (req, res) => {
+app.post("/api/db/bus/route", async (req, res) => {
   const { id, stationId, routeId, staOrder, routeType, routeName } = req.body;
   let connection = await pool.getConnection(async (conn) => {
     if (err) throw err;
@@ -294,7 +294,7 @@ app.post("/bus/route", async (req, res) => {
   }
 });
 
-app.delete("/bus/route", async (req, res) => {
+app.delete("/api/db/bus/route", async (req, res) => {
   const { id, stationId } = req.body;
   let connection = await pool.getConnection(async (conn) => {
     if (err) throw err;
@@ -319,7 +319,7 @@ app.delete("/bus/route", async (req, res) => {
   }
 });
 
-app.get("/weather/location", async (req, res) => {
+app.get("/api/db/weather/location", async (req, res) => {
   const id = req.query.id;
   let connection = await pool.getConnection(async (conn) => {
     if (err) throw err;
@@ -337,7 +337,7 @@ app.get("/weather/location", async (req, res) => {
   }
 });
 
-app.post("/weather/location", async (req, res) => {
+app.post("/api/db/weather/location", async (req, res) => {
   const { id, localName, x, y } = req.body;
   let connection = await pool.getConnection(async (conn) => {
     if (err) throw err;
@@ -356,7 +356,7 @@ app.post("/weather/location", async (req, res) => {
   }
 });
 
-app.delete("/weather/location", async (req, res) => {
+app.delete("/api/db/weather/location", async (req, res) => {
   const { id, localName } = req.body;
   let connection = await pool.getConnection(async (conn) => {
     if (err) throw err;
@@ -383,12 +383,12 @@ app.delete("/weather/location", async (req, res) => {
 
 //---------크롤링---------
 
-app.get("/api/news", (req, res) => {
+app.get("/api/crawling/news", (req, res) => {
   //news crawling
   newsFetching().then((response) => res.send(response));
 });
 
-app.get("/api/stocks", (req, res) => {
+app.get("/api/crawling/stocks", (req, res) => {
   //stock crawling
   const stockCode = req.query.stockCode;
   StockFetching(stockCode).then((response) => {

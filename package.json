@@ -1,5 +1,5 @@
 {
-  "name": "clones",
+  "name": "todays",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -12,12 +12,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/TodaysInfo/clones.git"
+    "url": "git+https://github.com/Front100End/Todays-Info.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/TodaysInfo/clones/issues"
+    "url": "https://github.com/Front100End/Todays-Info/issues"
   },
-  "homepage": "https://github.com/TodaysInfo/clones#readme"
+  "homepage": "https://github.com/Front100End/Todays-Info#readme"
 }
