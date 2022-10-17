@@ -21,22 +21,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 dotenv.config();
 
-const whitelist = ["http://localhost:3000"];
-const corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not Allowed Origin!"));
-    }
-  },
-  credentials: true,
-};
-app.use(cors(corsOptions));
-
 app.get("/", (req, res) => {
   newsFetching().then((response) => res.send(response));
-  // res.sendFile(__dirname + "/build/index.html");
+  res.sendFile(__dirname + "/build/index.html");
 });
 
 let pool;
@@ -546,11 +533,11 @@ app.post("/api/weather", (req, res) => {
 
 app.listen(PORT, async () => {
   pool = await mysql.createPool({
-    host: "localhost",
-    user: "root",
+    host: "3.35.237.101",
+    user: "jsj3063",
     database: "todaysinfo",
     password: `${process.env.REACT_APP_LOCAL_DB_PASSWORD}`,
-    connectionLimit: 10,
+    connectionLimit: 50,
   });
   console.log(`Example app listening on port ${PORT}`);
 });

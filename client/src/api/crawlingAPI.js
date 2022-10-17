@@ -2,9 +2,9 @@
 
 import axios from "axios";
 
-export const getNews = () => axios.get("http://localhost:5000/api/news");
+export const getNews = () => axios.get("http://3.35.237.101/api/news");
 export const getStocks = async (stockCode) => {
-  let result = await axios.get("http://localhost:5000/api/stocks", {
+  let result = await axios.get("http://3.35.237.101/api/stocks", {
     params: {
       stockCode: stockCode,
     },

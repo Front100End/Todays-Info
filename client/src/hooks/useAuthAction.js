@@ -10,7 +10,7 @@ const useAuthAction = async (loadingFunc) => {
   const navigate = useNavigate();
   const AuthCheck = async () => {
     try {
-      const authRes = await axios.get("http://localhost:5000/api/users/auth", {
+      const authRes = await axios.get("http://3.35.237.101/api/users/auth", {
         withCredentials: true,
       });
       if (authRes.data.isAuth === true) {

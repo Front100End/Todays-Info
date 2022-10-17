@@ -1,12 +1,12 @@
 import axios from "axios";
 
 export const setStockCodeDB = (id, stockCode) =>
-  axios.post("http://localhost:5000/stock/code", {
+  axios.post("http://3.35.237.101/stock/code", {
     id: id,
     stockCode: stockCode,
   });
 export const setWeatherLocationDB = (id, localName, x, y) =>
-  axios.post("http://localhost:5000/weather/location", {
+  axios.post("http://3.35.237.101/weather/location", {
     id: id,
     localName: localName,
     x: x,
@@ -20,7 +20,7 @@ export const setbusRouteDB = (
   routeType,
   routeName
 ) =>
-  axios.post("http://localhost:5000/bus/route", {
+  axios.post("http://3.35.237.101/bus/route", {
     id: id,
     stationId: stationId,
     routeId: routeId,
