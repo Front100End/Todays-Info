@@ -533,10 +533,10 @@ app.post("/api/weather", (req, res) => {
 
 app.listen(PORT, async () => {
   pool = await mysql.createPool({
-    host: "3.35.237.101",
-    user: "jsj3063",
-    database: "todaysinfo",
-    password: `${process.env.REACT_APP_LOCAL_DB_PASSWORD}`,
+    host: `${process.env.REACT_APP_HEROKU_HOST}`,
+    user: `${process.env.REACT_APP_HEROKU_USER}`,
+    database: `${process.env.REACT_APP_HEROKU_DB}`,
+    password: `${process.env.REACT_APP_HEROKU_PASSWORD}`,
     connectionLimit: 50,
   });
   console.log(`Example app listening on port ${PORT}`);
