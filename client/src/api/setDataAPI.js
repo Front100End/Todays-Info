@@ -1,12 +1,12 @@
 import axios from "axios";
 
 export const setStockCodeDB = (id, stockCode) =>
-  axios.post("https://todays-info.herokuapp.com/stock/code", {
+  axios.post("https://todays-info.herokuapp.com/api/db/stock/code", {
     id: id,
     stockCode: stockCode,
   });
 export const setWeatherLocationDB = (id, localName, x, y) =>
-  axios.post("https://todays-info.herokuapp.com/weather/location", {
+  axios.post("https://todays-info.herokuapp.com/api/db/weather/location", {
     id: id,
     localName: localName,
     x: x,
@@ -20,7 +20,7 @@ export const setbusRouteDB = (
   routeType,
   routeName
 ) =>
-  axios.post("https://todays-info.herokuapp.com/bus/route", {
+  axios.post("https://todays-info.herokuapp.com/api/db/bus/route", {
     id: id,
     stationId: stationId,
     routeId: routeId,

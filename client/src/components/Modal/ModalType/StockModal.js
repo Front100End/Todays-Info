@@ -62,13 +62,7 @@ const StockModal = (props) => {
           </form>
         </li>
         <li>
-          <ul
-          // style={
-          //   stockSearchLoading === false
-          //     ? { display: "block" }
-          //     : { display: "none" }
-          // }
-          >
+          <ul>
             {stockSearchLoading === false ? (
               stockStorage.map((current, index) => {
                 return (
