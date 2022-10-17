@@ -4,7 +4,7 @@ import * as openApi from "../../../api/openAPI";
 import * as setApi from "../../../api/setDataAPI";
 import * as crawlingApi from "../../../api/crawlingAPI";
 import { useDispatch, useSelector } from "react-redux";
-import { setStockCode, setStockData } from "../../../modules/stockReducer";
+import { setStockData } from "../../../modules/stockReducer";
 
 const StockModal = (props) => {
   const [stockName, setStockName] = useState("");
@@ -13,7 +13,6 @@ const StockModal = (props) => {
   const [guide, setGuide] = useState("종목명을 입력해주세요.");
   const dispatch = useDispatch();
   const User = useSelector((state) => state.userReducer.currentUser);
-  const stockCodeArray = useSelector((state) => state.stockReducer.stockCode);
 
   const stockCodeSearch = async (e, stockName) => {
     e.preventDefault();
@@ -29,11 +28,11 @@ const StockModal = (props) => {
   };
 
   const setStockItem = async (id, stockCode, stockName) => {
-    const StockData = {
-      stockCode: stockCode,
-      stockName: stockName,
-    };
-    dispatch(setStockCode(StockData)); //종목코드 dispatch
+    // const StockData = {
+    //   stockCode: stockCode,
+    //   stockName: stockName,
+    // };
+    // dispatch(setStockCode(StockData)); //종목코드 dispatch
     let crawlingData = await crawlingApi.getStocks(stockCode);
     let crawlingArray = [crawlingData.data];
     dispatch(setStockData(crawlingArray)); //종목코드 크롤링 결과 dispatch
