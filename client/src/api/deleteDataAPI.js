@@ -1,14 +1,14 @@
 import axios from "axios";
 
 export const deleteStockDB = (id, stockCode) =>
-  axios.delete("http://3.35.237.101/stock/code", {
+  axios.delete("https://todays-info.herokuapp.com/stock/code", {
     data: {
       id: id,
       stockCode: stockCode,
     },
   });
 export const deleteWeatherDB = (id, localName) =>
-  axios.delete("http://3.35.237.101/weather/location", {
+  axios.delete("https://todays-info.herokuapp.com/weather/location", {
     data: {
       id: id,
       localName: localName,
@@ -16,7 +16,7 @@ export const deleteWeatherDB = (id, localName) =>
   });
 
 export const deleteBusDB = (id, stationId) =>
-  axios.delete("http://3.35.237.101/bus/route", {
+  axios.delete("https://todays-info.herokuapp.com/bus/route", {
     data: {
       id: id,
       stationId: stationId,

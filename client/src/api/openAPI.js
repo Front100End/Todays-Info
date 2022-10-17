@@ -3,23 +3,23 @@
 import axios from "axios";
 
 export const stockSearchRequest = async (searchKeyword) =>
-  axios.post("http://3.35.237.101/api/stocks/search", {
+  axios.post("https://todays-info.herokuapp.com/api/stocks/search", {
     searchKeyword: searchKeyword,
   });
 export const busStationSearchRequest = async (searchKeyword) =>
-  axios.get("http://3.35.237.101/api/bus/search/station", {
+  axios.get("https://todays-info.herokuapp.com/api/bus/search/station", {
     params: {
       searchKeyword: searchKeyword,
     },
   });
 export const busRouteSearchRequest = async (stationId) =>
-  axios.get("http://3.35.237.101/api/bus/search/route", {
+  axios.get("https://todays-info.herokuapp.com/api/bus/search/route", {
     params: {
       stationId: stationId,
     },
   });
 export const busDataRequest = async (stationId, routeId, staOrder) =>
-  axios.get("http://3.35.237.101/api/bus", {
+  axios.get("https://todays-info.herokuapp.com/api/bus", {
     params: {
       stationId: stationId,
       routeId: routeId,
@@ -28,13 +28,13 @@ export const busDataRequest = async (stationId, routeId, staOrder) =>
   });
 
 export const weatherSearchRequest = async (searchKeyword) =>
-  axios.get("http://3.35.237.101/api/weather/search", {
+  axios.get("https://todays-info.herokuapp.com/api/weather/search", {
     params: {
       searchKeyword: searchKeyword,
     },
   });
 export const weatherDataRequest = async (x, y) =>
-  axios.post("http://3.35.237.101/api/weather", {
+  axios.post("https://todays-info.herokuapp.com/api/weather", {
     x: x,
     y: y,
   });
