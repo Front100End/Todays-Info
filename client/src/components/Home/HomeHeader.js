@@ -21,7 +21,6 @@ const HomeHeader = (props) => {
 
   useEffect(() => {
     setHeaderTime(HomeHeaderTime());
-    console.log(userInfo[0]);
   }, []);
 
   const plusStateToggle = () => {

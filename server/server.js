@@ -21,13 +21,12 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 dotenv.config();
 
-let pool;
-
 app.get("/", (req, res) => {
   newsFetching().then((response) => res.send(response));
   res.sendFile(__dirname + "/build/index.html");
 });
 
+let pool;
 //---------로그인---------
 
 app.post("/api/users/login", async (req, res) => {
@@ -216,7 +215,6 @@ app.get("/stock/code", async (req, res) => {
   }
 });
 
-//현재는 빠른 개발을 위해 중복확인을 하지않을 것임. 추후 수정 예정.
 app.post("/stock/code", async (req, res) => {
   const { id, stockCode } = req.body;
   let connection = await pool.getConnection(async (conn) => {
@@ -420,7 +418,6 @@ app.post("/api/stocks/search", async (req, res) => {
         (current) => current.eltscYn === "Y"
       ); //현재 상장중인 종목만을 filter
     }
-    // console.log(filterSearchResult);
     res.send(filterSearchResult);
   } catch (err) {
     res.json({ isSuccess: false, error: err });
@@ -536,10 +533,10 @@ app.post("/api/weather", (req, res) => {
 
 app.listen(PORT, async () => {
   pool = await mysql.createPool({
-    host: "3.35.237.101",
-    user: "jsj3063",
-    database: "todaysinfo",
-    password: `${process.env.REACT_APP_LOCAL_DB_PASSWORD}`,
+    host: `${process.env.REACT_APP_HEROKU_HOST}`,
+    user: `${process.env.REACT_APP_HEROKU_USER}`,
+    database: `${process.env.REACT_APP_HEROKU_DB}`,
+    password: `${process.env.REACT_APP_HEROKU_PASSWORD}`,
     connectionLimit: 50,
   });
   console.log(`Example app listening on port ${PORT}`);

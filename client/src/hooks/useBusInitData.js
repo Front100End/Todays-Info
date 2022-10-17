@@ -14,7 +14,6 @@ const useBusInitData = (loadingFunc) => {
       let busInitData = await initApi.setBusInitData(User[0].id);
       dispatch(resetBusData([]));
       busInitData.data.forEach(async (current) => {
-        console.log(busInitData.data);
         let busRes = await openApi.busDataRequest(
           current.stationId,
           current.routeId,

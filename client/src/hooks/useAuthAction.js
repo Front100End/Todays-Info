@@ -10,9 +10,12 @@ const useAuthAction = async (loadingFunc) => {
   const navigate = useNavigate();
   const AuthCheck = async () => {
     try {
-      const authRes = await axios.get("http://3.35.237.101/api/users/auth", {
-        withCredentials: true,
-      });
+      const authRes = await axios.get(
+        "https://todays-info.herokuapp.com/api/users/auth",
+        {
+          withCredentials: true,
+        }
+      );
       if (authRes.data.isAuth === true) {
         //인증 성공
         setAccessState(true);

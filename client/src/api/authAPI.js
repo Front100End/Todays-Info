@@ -3,9 +3,12 @@ import { setUser } from "../modules/userReducer";
 
 export const authRequest = async (accessCheck, dispatch) => {
   try {
-    const res = await axios.get("http://3.35.237.101/api/users/auth", {
-      withCredentials: true,
-    });
+    const res = await axios.get(
+      "https://todays-info.herokuapp.com/users/auth",
+      {
+        withCredentials: true,
+      }
+    );
     if (res.data.isAuth === true) {
       accessCheck(res.data.isAuth, dispatch(setUser(res.data)));
     } else {

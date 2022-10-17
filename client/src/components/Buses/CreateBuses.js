@@ -83,7 +83,7 @@ const CreateBuses = (props) => {
                       </div>
                     </div>
                     <div className={styles.busArrTimeArea}>
-                      {current.predictTime1._text.length !== 0 ? (
+                      {Object.keys(current.predictTime1).length !== 0 ? (
                         <div>
                           <p>
                             <em>{current.predictTime1._text}분후</em>
@@ -94,7 +94,7 @@ const CreateBuses = (props) => {
                               ""
                             )}
                           </p>
-                          {current.predictTime2._text.length !== 0 ? (
+                          {Object.keys(current.predictTime2).length !== 0 ? (
                             <p>
                               <em>{current.predictTime2._text}분후</em>
                               <span>{current.locationNo2._text}번째전</span>
