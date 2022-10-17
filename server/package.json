@@ -27,8 +27,8 @@
     "request": "^2.88.2",
     "xml-js": "^1.6.11"
   },
-  "proxy": "http://localhost:5000",
   "devDependencies": {
     "nodemon": "^2.0.20"
-  }
+  },
+  "proxy": "http://localhost:5000"
 }
