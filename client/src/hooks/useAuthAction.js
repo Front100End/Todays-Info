@@ -11,7 +11,6 @@ const useAuthAction = async (loadingFunc) => {
   const AuthCheck = async () => {
     try {
       const authRes = await axios.get(
-        // "https://todays-info.herokuapp.com/api/users/auth",
         "https://todays-info.site/api/users/auth",
         {
           withCredentials: true,

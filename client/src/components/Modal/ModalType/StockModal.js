@@ -28,12 +28,6 @@ const StockModal = (props) => {
   };
 
   const setStockItem = async (id, stockCode, stockName) => {
-    // const StockData = {
-    //   stockCode: stockCode,
-    //   stockName: stockName,
-    // };
-    // dispatch(setStockCode(StockData)); //종목코드 dispatch
-
     let crawlingData = await crawlingApi.getStocks(stockCode);
     let crawlingArray = [crawlingData.data];
     dispatch(setStockData(crawlingArray)); //종목코드 크롤링 결과 dispatch
