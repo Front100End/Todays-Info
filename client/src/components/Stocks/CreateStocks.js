@@ -10,6 +10,7 @@ import refreshIcon from "../../images/refresh_icon.png";
 import * as initApi from "../../api/initDataAPI";
 import * as crawlingApi from "../../api/crawlingAPI";
 import { resetStockData, setStockData } from "../../modules/stockReducer";
+
 const CreateStocks = (props) => {
   const [loading, setLoading] = useState(true);
   const [stockArray, setStockArray] = useState([]);
