@@ -62,7 +62,7 @@ const CreateBuses = (props) => {
         </button>
       </li>
       <li>
-        <ul>
+        <ul className={styles.busComponent}>
           {loading === true
             ? ""
             : busArray.map((current, index) => {
@@ -117,7 +117,7 @@ const CreateBuses = (props) => {
                       onClick={() => {
                         deleteBusData(
                           User[0].id,
-                          current.stationId._text,
+                          current.routeId._text,
                           dispatch
                         );
                       }}

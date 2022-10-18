@@ -33,7 +33,7 @@ export default function busReducer(state = initState, action) {
       return {
         ...state,
         busData: state.busData.filter(
-          (current) => current.stationId._text !== action.data
+          (current) => current.routeId._text !== action.data
         ),
       };
     }

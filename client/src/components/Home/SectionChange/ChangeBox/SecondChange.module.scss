@@ -1,4 +1,10 @@
 .gridArea {
   display: gird;
-  padding: 1rem 0.8rem 2rem 0.8rem;
+  padding: 1rem 0.8rem 250px 0.8rem;
+}
+
+@media screen and (max-width: 768px) {
+  .gridArea {
+    padding: 1rem 0.8rem 2rem 0.8rem;
+  }
 }

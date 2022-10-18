@@ -11,7 +11,8 @@ const useAuthAction = async (loadingFunc) => {
   const AuthCheck = async () => {
     try {
       const authRes = await axios.get(
-        "https://todays-info.herokuapp.com/api/users/auth",
+        // "https://todays-info.herokuapp.com/api/users/auth",
+        "https://todays-info.site/api/users/auth",
         {
           withCredentials: true,
         }
@@ -20,12 +21,12 @@ const useAuthAction = async (loadingFunc) => {
         //인증 성공
         setAccessState(true);
         dispatch(setUser(authRes.data));
-        loadingFunc(true);
+        loadingFunc(false);
         navigate(`/`);
       } else {
         //인증 실패
         setAccessState(false);
-        loadingFunc(false);
+        loadingFunc(true);
         navigate(`/login`);
       }
     } catch (err) {

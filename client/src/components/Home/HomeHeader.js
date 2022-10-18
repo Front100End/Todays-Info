@@ -43,7 +43,7 @@ const HomeHeader = (props) => {
   };
 
   return (
-    <div className={styles.HomeHeaderWrap}>
+    <header className={styles.HomeHeaderWrap}>
       {modalState ? (
         <React.Fragment>
           <div
@@ -118,7 +118,7 @@ const HomeHeader = (props) => {
           <p>{headerTime}</p>
         </div>
       </header>
-    </div>
+    </header>
   );
 };
 

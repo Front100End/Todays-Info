@@ -3,10 +3,12 @@
 import axios from "axios";
 
 export const getNews = () =>
-  axios.get("https://todays-info.herokuapp.com/api/crawling/news");
+  axios.get("https://todays-info.site/api/crawling/news");
+
 export const getStocks = async (stockCode) => {
   let result = await axios.get(
-    "https://todays-info.herokuapp.com/api/crawling/stocks",
+    "https://todays-info.site/api/crawling/stocks",
+
     {
       params: {
         stockCode: stockCode,

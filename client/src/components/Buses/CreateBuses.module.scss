@@ -40,7 +40,7 @@
     }
   }
   > li:last-child {
-    > ul {
+    .busComponent {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -48,8 +48,6 @@
       margin-top: 15px;
       > li {
         position: relative;
-        max-width: 170px;
-        min-width: 160px;
         margin-top: 15px;
         border-radius: 5px;
         background-color: #fff;
@@ -111,12 +109,23 @@
           top: 10px;
         }
       }
-      @media screen and (max-width: 768px) {
-        > li {
-          max-width: none;
-          width: 250px;
-        }
-      }
     }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .busComponent {
+    > li {
+      max-width: 250px;
+      width: 80%;
+    }
+  }
+  .busInfo {
+    > div {
+      margin-left: 15px;
+    }
+  }
+  .busArrTimeArea {
+    text-align: center;
   }
 }
