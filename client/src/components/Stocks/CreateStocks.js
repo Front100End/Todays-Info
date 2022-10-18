@@ -9,12 +9,11 @@ import downIcon from "../../images/down_icon.png";
 import refreshIcon from "../../images/refresh_icon.png";
 import * as initApi from "../../api/initDataAPI";
 import * as crawlingApi from "../../api/crawlingAPI";
-import useStockInitData from "../../hooks/useStockInitData";
 import { resetStockData, setStockData } from "../../modules/stockReducer";
+
 const CreateStocks = (props) => {
   const [loading, setLoading] = useState(true);
   const [stockArray, setStockArray] = useState([]);
-  const stockCode = useSelector((state) => state.stockReducer.stockCode);
   const stockData = useSelector((state) => state.stockReducer.stockData);
   const User = useSelector((state) => state.userReducer.currentUser);
   const dispatch = useDispatch();

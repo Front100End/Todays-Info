@@ -160,29 +160,33 @@ app.get("/api/users/auth", async (req, res) => {
     return conn;
   });
   try {
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, function (err, decoded) {
-      //유저 아이디 확인.
-      const findUser = async (decodedId) => {
-        let user;
-        const jwtCheck = await connection.query(
-          `SELECT * FROM user WHERE id = ? and token = ?`,
-          [decodedId, token]
-        );
-        if (!jwtCheck) return res.json({ isAuth: false, error: true });
+    jwt.verify(
+      token,
+      process.env.REACT_APP_ACCESS_TOKEN_SECRET,
+      function (err, decoded) {
+        //유저 아이디 확인.
+        const findUser = async (decodedId) => {
+          let user;
+          const jwtCheck = await connection.query(
+            `SELECT * FROM user WHERE id = ? and token = ?`,
+            [decodedId, token]
+          );
+          if (!jwtCheck) return res.json({ isAuth: false, error: true });
 
-        user = jwtCheck[0][0];
+          user = jwtCheck[0][0];
 
-        res.status(200).json({
-          isAuth: true,
-          isAdmin: user.id === 0 ? true : false,
-          id: user.id,
-          userId: user.userId,
-          userNickname: user.userNickname,
-          userEmail: user.userEmail,
-        });
-      };
-      findUser(decoded.id);
-    });
+          res.status(200).json({
+            isAuth: true,
+            isAdmin: user.id === 0 ? true : false,
+            id: user.id,
+            userId: user.userId,
+            userNickname: user.userNickname,
+            userEmail: user.userEmail,
+          });
+        };
+        findUser(decoded.id);
+      }
+    );
   } catch (err) {
     res.json({
       isAuth: false,

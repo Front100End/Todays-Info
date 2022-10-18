@@ -1,13 +1,9 @@
-const StockData = "StockData";
-const StockCode = "StockCode";
-const DeleteStockData = "DeleteStockData";
+const StockData = "stockData";
+const StockCode = "stockCode";
+const DeleteStockData = "deleteStockData";
 const ResetStockData = "resetStockData";
 export const setStockData = (data) => ({
   type: StockData,
-  data: data,
-});
-export const setStockCode = (data) => ({
-  type: StockCode,
   data: data,
 });
 export const deleteStock = (data) => ({
@@ -29,12 +25,6 @@ export default function weatherReducer(state = initState, action) {
       return {
         ...state,
         stockData: state.stockData.concat(action.data),
-      };
-    }
-    case StockCode: {
-      return {
-        ...state,
-        stockCode: state.stockCode.concat(action.data),
       };
     }
     case DeleteStockData: {
