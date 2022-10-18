@@ -3,20 +3,26 @@
   justify-content: center;
   align-items: center;
   margin-top: 20px;
-  a {
+  > a {
     color: black;
     text-decoration: none;
-    // :visited {
-    //   text-decoration: none;
-    // }
   }
 
-  li::before {
-    content: "|";
-    padding: 0 5px;
-  }
-  li:first-child::before {
-    content: "";
-    padding: 0;
+  > li {
+    &::before {
+      content: "|";
+      padding: 0 5px;
+      color: #bdbdbd;
+    }
+    &:first-child::before {
+      content: "";
+      padding: 0;
+    }
+    &:nth-child(1) {
+      color: #bdbdbd;
+    }
+    &:nth-child(2) {
+      color: #bdbdbd;
+    }
   }
 }

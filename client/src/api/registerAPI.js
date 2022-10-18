@@ -4,7 +4,7 @@ import axios from "axios";
 
 export const loginRequest = async (id, password) =>
   axios.post(
-    "https://todays-info.herokuapp.com/api/users/login",
+    "https://todays-info.site/api/users/login",
     {
       id: id,
       password: password,
@@ -14,7 +14,7 @@ export const loginRequest = async (id, password) =>
 
 export const logoutRequest = async (id) =>
   axios.post(
-    "https://todays-info.herokuapp.com/api/users/logout",
+    "https://todays-info.site/api/users/logout",
     {
       id: id,
     },
@@ -23,7 +23,7 @@ export const logoutRequest = async (id) =>
 
 export const joinRequest = async (id, nickname, email, password) =>
   axios.post(
-    "https://todays-info.herokuapp.com/api/users/join",
+    "https://todays-info.site/api/users/join",
     {
       id: id,
       nickname: nickname,

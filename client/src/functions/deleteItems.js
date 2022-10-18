@@ -21,11 +21,10 @@ export const deleteWeatherData = async (id, localName, dispatch) => {
   }
 };
 
-export const deleteBusData = async (id, stationId, dispatch) => {
-  let deleteRes = await deleteApi.deleteBusDB(id, stationId);
-  console.log(deleteRes.data);
+export const deleteBusData = async (id, routeId, dispatch) => {
+  let deleteRes = await deleteApi.deleteBusDB(id, routeId);
   if (deleteRes.data.deleteBusRouteSuccess === true) {
-    dispatch(deleteBus(stationId));
+    dispatch(deleteBus(routeId));
   } else {
     return;
   }

@@ -8,14 +8,20 @@ import useAuthAction from "../../hooks/useAuthAction";
 import { useDispatch, useSelector } from "react-redux";
 
 const Login = (props) => {
-  useAuthAction();
+  const [loading, setLoading] = useState(true);
   const User = useSelector((state) => state.userReducer.currentUser);
+  const homeLoading = (state) => {
+    setLoading(state);
+  };
+  useAuthAction(homeLoading);
 
   return (
     <div className={styles.wrap}>
-      <LoginHeader></LoginHeader>
-      <LoginSection></LoginSection>
-      <LoginArticle></LoginArticle>
+      <div className={styles.homeWrap}>
+        <LoginHeader></LoginHeader>
+        <LoginSection></LoginSection>
+        <LoginArticle></LoginArticle>
+      </div>
     </div>
   );
 };

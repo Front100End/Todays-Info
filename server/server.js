@@ -12,9 +12,10 @@ import cookie from "cookie";
 import cookieParser from "cookie-parser";
 import jwt from "jsonwebtoken";
 import xmlConverter from "xml-js";
-
+let pool;
 const app = express();
 const PORT = process.env.PORT || 5000;
+
 app.use(express.static("build"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -26,7 +27,6 @@ app.get("/", (req, res) => {
   res.sendFile(__dirname + "/build/index.html");
 });
 
-let pool;
 //---------로그인---------
 
 app.post("/api/users/login", async (req, res) => {
@@ -171,7 +171,7 @@ app.get("/api/users/auth", async (req, res) => {
             `SELECT * FROM user WHERE id = ? and token = ?`,
             [decodedId, token]
           );
-          if (!jwtCheck) return res.json({ isAuth: false, error: true });
+          if (!jwtCheck) return res.json({ isAuth: false, token: false });
 
           user = jwtCheck[0][0];
 
@@ -190,6 +190,7 @@ app.get("/api/users/auth", async (req, res) => {
   } catch (err) {
     res.json({
       isAuth: false,
+      token: false,
       error: err,
     });
   }
@@ -299,15 +300,15 @@ app.post("/api/db/bus/route", async (req, res) => {
 });
 
 app.delete("/api/db/bus/route", async (req, res) => {
-  const { id, stationId } = req.body;
+  const { id, routeId } = req.body;
   let connection = await pool.getConnection(async (conn) => {
     if (err) throw err;
     return conn;
   });
   try {
     let deleteItem = await connection.query(
-      "DELETE FROM bus WHERE id=? and stationId =?",
-      [id, stationId]
+      "DELETE FROM bus WHERE id=? and routeId =?",
+      [id, routeId]
     );
     connection.release();
     return res.json({
@@ -536,12 +537,19 @@ app.post("/api/weather", (req, res) => {
 });
 
 app.listen(PORT, async () => {
+  // pool = await mysql.createPool({
+  //   host: `${process.env.REACT_APP_HEROKU_HOST}`,
+  //   user: `${process.env.REACT_APP_HEROKU_USER}`,
+  //   database: `${process.env.REACT_APP_HEROKU_DB}`,
+  //   password: `${process.env.REACT_APP_HEROKU_PASSWORD}`,
+  //   connectionLimit: 50,
+  // });
   pool = await mysql.createPool({
-    host: `${process.env.REACT_APP_HEROKU_HOST}`,
-    user: `${process.env.REACT_APP_HEROKU_USER}`,
-    database: `${process.env.REACT_APP_HEROKU_DB}`,
-    password: `${process.env.REACT_APP_HEROKU_PASSWORD}`,
-    connectionLimit: 50,
+    host: "localhost",
+    user: "root",
+    database: "todaysinfo",
+    password: `${process.env.REACT_APP_LOCAL_DB_PASSWORD}`,
+    connectionLimit: 10,
   });
   console.log(`Example app listening on port ${PORT}`);
 });

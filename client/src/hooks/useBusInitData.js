@@ -31,7 +31,6 @@ const useBusInitData = (loadingFunc) => {
         }
       });
       loadingFunc(false);
-      if (loadingFunc === false) return;
     } catch (err) {
       console.log(err);
     }

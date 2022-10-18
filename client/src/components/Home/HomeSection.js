@@ -15,10 +15,10 @@ const HomeSection = (props) => {
   };
 
   return (
-    <div>
+    <section>
       <ChangeButton menuSwitching={menuSwitching}></ChangeButton>
       {menu[menuState]}
-    </div>
+    </section>
   );
 };
 

@@ -7,8 +7,8 @@ import useAuthAction from "../../hooks/useAuthAction";
 import { useSelector } from "react-redux";
 import * as initApi from "../../api/initDataAPI";
 const Home = (props) => {
-  const [accessState, setAccessState] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [accessState, setAccessState] = useState(true);
+  const [loading, setLoading] = useState(true);
   const User = useSelector((state) => state.userReducer.currentUser);
 
   const homeLoading = (state) => {
@@ -18,23 +18,16 @@ const Home = (props) => {
     setAccessState(response)
   );
 
-  // const setAllInitState = async (id) => {
-  //   let initStockCode = await initApi.setStocksInitState(id);
-  //   console.log(initStockCode);
-  // };
-  // useEffect(() => {
-  //   setAllInitState(User[0].id);
-  // }, []);
   return (
     <div className={styles.Home}>
       {loading ? (
+        ""
+      ) : (
         <div className={styles.homeWrap}>
           <HomeHeader></HomeHeader>
           <HomeSection></HomeSection>
           <HomeFooter></HomeFooter>
         </div>
-      ) : (
-        ""
       )}
     </div>
   );

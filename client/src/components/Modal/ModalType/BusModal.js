@@ -25,7 +25,6 @@ const BusModal = (props) => {
         let stationSearchRes = await openApi.busStationSearchRequest(
           stationName
         );
-        console.log(stationSearchRes.data.response.msgBody.busStationList);
         if (
           stationSearchRes.data.response.msgHeader.resultMessage._text ===
           "결과가 존재하지 않습니다."
