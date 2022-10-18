@@ -171,7 +171,7 @@ app.get("/api/users/auth", async (req, res) => {
             `SELECT * FROM user WHERE id = ? and token = ?`,
             [decodedId, token]
           );
-          if (!jwtCheck) return res.json({ isAuth: false, token: false });
+          if (!jwtCheck) return res.json({ isAuth: false, error: true });
 
           user = jwtCheck[0][0];
 
@@ -190,7 +190,6 @@ app.get("/api/users/auth", async (req, res) => {
   } catch (err) {
     res.json({
       isAuth: false,
-      token: false,
       error: err,
     });
   }

@@ -1,4 +1,5 @@
 const StockData = "stockData";
+const StockCode = "stockCode";
 const DeleteStockData = "deleteStockData";
 const ResetStockData = "resetStockData";
 export const setStockData = (data) => ({

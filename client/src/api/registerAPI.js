@@ -14,7 +14,7 @@ export const loginRequest = async (id, password) =>
 
 export const logoutRequest = async (id) =>
   axios.post(
-    "https://todays-info.site/api/users/logout",
+    "https://todays-info.herokuapp.com/api/users/logout",
     {
       id: id,
     },
