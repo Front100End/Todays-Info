@@ -537,19 +537,13 @@ app.post("/api/weather", (req, res) => {
 });
 
 app.listen(PORT, async () => {
-  // pool = await mysql.createPool({
-  //   host: `${process.env.REACT_APP_HEROKU_HOST}`,
-  //   user: `${process.env.REACT_APP_HEROKU_USER}`,
-  //   database: `${process.env.REACT_APP_HEROKU_DB}`,
-  //   password: `${process.env.REACT_APP_HEROKU_PASSWORD}`,
-  //   connectionLimit: 50,
-  // });
   pool = await mysql.createPool({
-    host: "localhost",
-    user: "root",
-    database: "todaysinfo",
-    password: `${process.env.REACT_APP_LOCAL_DB_PASSWORD}`,
-    connectionLimit: 10,
+    host: `${process.env.REACT_APP_HEROKU_HOST}`,
+    user: `${process.env.REACT_APP_HEROKU_USER}`,
+    database: `${process.env.REACT_APP_HEROKU_DB}`,
+    password: `${process.env.REACT_APP_HEROKU_PASSWORD}`,
+    connectionLimit: 50,
   });
+
   console.log(`Example app listening on port ${PORT}`);
 });
