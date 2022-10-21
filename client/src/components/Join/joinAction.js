@@ -13,7 +13,6 @@ export const joinAction = async (
   if (joinResult.data === "join success") {
     navigate("/login");
   } else {
-    console.log(joinResult.data.message);
     guideMessageChange(joinResult.data.message);
   }
   //비밀번호 암호화

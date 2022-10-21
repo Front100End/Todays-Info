@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import axios from "axios";
 import { setUser } from "../modules/userReducer";
 import { Navigate, useNavigate } from "react-router-dom";
+import * as authApi from "../api/authAPI";
 
 const useAuthAction = async (loadingFunc) => {
   const [accessState, setAccessState] = useState(false);
@@ -10,12 +11,7 @@ const useAuthAction = async (loadingFunc) => {
   const navigate = useNavigate();
   const AuthCheck = async () => {
     try {
-      const authRes = await axios.get(
-        "https://todays-info.site/api/users/auth",
-        {
-          withCredentials: true,
-        }
-      );
+      const authRes = await authApi.authRequest();
       if (authRes.data.isAuth === true) {
         //인증 성공
         setAccessState(true);

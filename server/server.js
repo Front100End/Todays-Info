@@ -3,15 +3,14 @@ import { newsFetching } from "./Crawling/NewsFetching.js";
 import { StockFetching } from "./Crawling/StockFetching.js";
 import { createUserToken } from "./User/userToken.js";
 import express from "express";
-import cors from "cors";
 import mysql from "mysql2/promise";
 import dotenv from "dotenv";
 import bcrypt from "bcrypt";
 import axios from "axios";
-import cookie from "cookie";
 import cookieParser from "cookie-parser";
 import jwt from "jsonwebtoken";
 import xmlConverter from "xml-js";
+
 let pool;
 const app = express();
 const PORT = process.env.PORT || 5000;

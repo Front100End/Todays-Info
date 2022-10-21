@@ -11,7 +11,7 @@ const JoinSection = (props) => {
   const [nickname, setNickname] = useState("");
   const [password, setPassword] = useState("");
   const [passwordCheck, setPasswordCheck] = useState("");
-  const [CheckState, setCheckState] = useState(false);
+  const [checkState, setCheckState] = useState(false);
   const [guideMessage, setGuideMessage] = useState("");
 
   const navigate = useNavigate();
@@ -40,7 +40,7 @@ const JoinSection = (props) => {
       onKeyDown={(e) => {
         if (e.key === "Enter") {
           if (
-            CheckState === true &&
+            checkState === true &&
             id !== "" &&
             email !== "" &&
             nickname !== ""
@@ -94,15 +94,19 @@ const JoinSection = (props) => {
           setPasswordCheck(e.target.value);
         }}
       ></LongBarInput>
-      {CheckState ? (
-        <span style={{ color: "#00e676" }}>※ 비밀번호가 일치합니다.</span>
+      {passwordCheck.length !== 0 ? (
+        checkState ? (
+          <span style={{ color: "#00e676" }}>※ 비밀번호가 일치합니다.</span>
+        ) : (
+          <span>※ 비밀번호가 일치하지 않습니다.</span>
+        )
       ) : (
-        <span>※ 비밀번호가 일치하지 않습니다.</span>
+        ""
       )}
       <LongBarButton
         onClick={() => {
           if (
-            CheckState === true &&
+            checkState === true &&
             id !== "" &&
             email !== "" &&
             nickname !== ""
