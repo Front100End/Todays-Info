@@ -71,8 +71,18 @@
     font-size: var(--large-font-size-mobile);
     font-weight: var(--medium-font-weight);
   }
+}
 
-  @media screen and (max-width: 768px) {
+@media screen and (max-width: 768px) {
+  .HomeHeaderWrap {
+    // position: relative;
+  }
+  .HomeHeader {
+    position: relative;
+    width: 100%;
+    position: fixed;
+    background-color: white;
+    z-index: 9;
     > ul {
       :first-child {
         font-size: var(--logo-font-size-mobile);
@@ -90,6 +100,7 @@
           left: var(--plus-left-margin-mobile);
 
           > button {
+            background-color: #fff;
             animation-name: mobileToggleAnimation;
             width: var(--toggle-width-mobile);
             height: var(--toggle-height-mobile);
