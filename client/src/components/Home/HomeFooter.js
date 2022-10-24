@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./HomeFooter.module.scss";
-import { useSelector } from "react-redux";
 
 const HomeFooter = (props) => {
   return (

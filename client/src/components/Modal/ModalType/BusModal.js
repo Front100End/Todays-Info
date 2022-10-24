@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./BusModal.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import * as openApi from "../../../api/openAPI";
@@ -87,8 +87,13 @@ const BusModal = (props) => {
         routeName
       );
       props.modalStateToggle();
+    } else if (
+      busDataRes.data.response.msgHeader.resultMessage._text ===
+      "결과가 존재하지 않습니다."
+    ) {
+      alert("현재 운행중인 차량이 없습니다.");
     } else {
-      alert("잠시 후 다시 저장해주세요.");
+      alert("잠시 후 다시 시도해주세요.");
     }
   };
 
@@ -132,7 +137,6 @@ const BusModal = (props) => {
                         }}
                       >
                         {current.stationName._text}
-                        <span>대림방면</span>
                       </button>
                     </li>
                   );
