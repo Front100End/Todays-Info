@@ -3,7 +3,6 @@ import WeatherModal from "./ModalType/WeatherModal";
 import BusModal from "./ModalType/BusModal";
 import StockModal from "./ModalType/StockModal";
 import styles from "./SetModal.module.scss";
-import { LargeIcon, MediumIcon } from "../../styles/Icons";
 import busIconImage from "../../images/ico_bus.png";
 import weatherIconImage from "../../images/ico_weather.png";
 import stockIconImage from "../../images/ico_stock.png";

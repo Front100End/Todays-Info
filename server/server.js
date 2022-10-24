@@ -542,7 +542,7 @@ app.listen(PORT, async () => {
     user: `${process.env.REACT_APP_HEROKU_USER}`,
     database: `${process.env.REACT_APP_HEROKU_DB}`,
     password: `${process.env.REACT_APP_HEROKU_PASSWORD}`,
-    connectionLimit: 50,
+    connectionLimit: 100,
   });
 
   console.log(`Example app listening on port ${PORT}`);
