@@ -25,7 +25,7 @@ const CurrentWeather = (props) => {
             alt="weatherMainIcon error"
           />
           <div>
-            <h4>{tempConverter(currentWeather.current.temp)}</h4>
+            <h4>{`${tempConverter(currentWeather.current.temp)}º`}</h4>
             <p>{`최고 ${tempConverter(
               currentWeather.daily[0].temp.max
             )}º / 최저 ${tempConverter(currentWeather.daily[0].temp.min)}º`}</p>

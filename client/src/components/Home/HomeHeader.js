@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import SetModal from "../Modal/SetModal";
 import styles from "./HomeHeader.module.scss";
 import modalStyles from "./modalStyle.module.scss";
@@ -9,7 +9,6 @@ import { HomeHeaderTime } from "../../functions/Times";
 import { logoutAction } from "../Login/logoutAction";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
 
 const HomeHeader = (props) => {
   const [headerTime, setHeaderTime] = useState();

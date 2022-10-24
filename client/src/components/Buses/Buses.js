@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styles from "../Home/SectionChange/ChangeBox/FirstChange.module.scss";
-import Item from "../item";
 import { FirstSubBox, SecondSubBox } from "../../styles/Item";
 import CreateBuses from "./CreateBuses";
 import useBusInitData from "../../hooks/useBusInitData";

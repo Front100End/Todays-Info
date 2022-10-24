@@ -8,7 +8,6 @@ import { setWeatherData } from "../../../modules/weatherReducer";
 const WeatherModal = (props) => {
   const [searchKeyword, setSearchKeyword] = useState();
   const [Location, setLocation] = useState([]);
-  const [currentWeather, setCurrentWeather] = useState([]);
   const requestTime = weatherRequestParams();
   const dispatch = useDispatch();
   const User = useSelector((state) => state.userReducer.currentUser);
