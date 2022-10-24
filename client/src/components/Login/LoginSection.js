@@ -2,10 +2,7 @@ import React, { useState } from "react";
 import styles from "./LoginSection.module.scss";
 import { LongBarInput, LongBarButton } from "../../styles/LongBar";
 import { loginAction } from "./loginAction";
-import { Link } from "react-router-dom";
-import * as api from "../../api/registerAPI";
 import { useNavigate } from "react-router-dom";
-import { keyframes } from "styled-components";
 
 const LoginSection = (props) => {
   const [userId, setUserId] = useState("");

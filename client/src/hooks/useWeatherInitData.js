@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
-import { setUser } from "../modules/userReducer";
+import { useEffect } from "react";
+
 import { useSelector, useDispatch } from "react-redux";
 import * as initApi from "../api/initDataAPI";
 import * as openApi from "../api/openAPI";
