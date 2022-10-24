@@ -182,7 +182,6 @@ app.get("/api/users/auth", async (req, res) => {
             userNickname: user.userNickname,
             userEmail: user.userEmail,
           });
-          connection.release();
         };
         findUser(decoded.id);
       }
@@ -193,11 +192,11 @@ app.get("/api/users/auth", async (req, res) => {
       token: false,
       error: err,
     });
-    connection.release();
   }
 
   // 쿠키에 저장된 토큰 값 확인
   // 토큰 디코드하면 나오는 id와 토큰 값을 DB의 저장값과 비교
+  connection.release();
 });
 
 //---------stock---------
