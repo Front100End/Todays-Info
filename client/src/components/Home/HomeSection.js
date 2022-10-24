@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import styles from "./HomeSection.module.scss";
+import React, { useState } from "react";
 import FirstChange from "./SectionChange/ChangeBox/FirstChange";
 import SecondChange from "./SectionChange/ChangeBox/SecondChange";
 import ChangeButton from "./SectionChange/ChangeButton";

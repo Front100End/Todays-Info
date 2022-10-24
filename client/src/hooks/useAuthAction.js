@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import axios from "axios";
 import { setUser } from "../modules/userReducer";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import * as authApi from "../api/authAPI";
 
 const useAuthAction = async (loadingFunc) => {

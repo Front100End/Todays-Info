@@ -1,4 +1,3 @@
-import axios from "axios";
 import * as api from "../../api/registerAPI";
 
 export const logoutAction = async (id, navigate) => {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styles from "../Home/SectionChange/ChangeBox/FirstChange.module.scss";
 import { FirstSubBox, SecondSubBox } from "../../styles/Item";
 import CreateStocks from "./CreateStocks";

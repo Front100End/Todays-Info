@@ -1,14 +1,8 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { setUser } from "../modules/userReducer";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import * as initApi from "../api/initDataAPI";
 import * as crawlingApi from "../api/crawlingAPI";
-import {
-  setStockCode,
-  setStockData,
-  resetStockData,
-} from "../modules/stockReducer";
+import { setStockData, resetStockData } from "../modules/stockReducer";
 const useStockInitData = (loadingFunc) => {
   const User = useSelector((state) => state.userReducer.currentUser);
   const dispatch = useDispatch();

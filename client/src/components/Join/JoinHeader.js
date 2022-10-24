@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./JoinHeader.module.scss";
-import { LongBarInput } from "../../styles/LongBar";
 const JoinHeader = (props) => {
   return (
     <header className={styles.JoinHeader}>

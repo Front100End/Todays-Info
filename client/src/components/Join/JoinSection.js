@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import styles from "./JoinSection.module.scss";
 import { LongBarButton, LongBarInput } from "../../styles/LongBar";
 import { joinAction } from "./joinAction";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 const JoinSection = (props) => {

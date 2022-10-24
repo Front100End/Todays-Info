@@ -1,7 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styles from "../Home/SectionChange/ChangeBox/FirstChange.module.scss";
-import Item from "../item";
-import LongItem from "../LongItem";
 import CreateNews from "./CreateNews";
 import { FirstMainBox, SecondMainBox } from "../../styles/Item";
 
